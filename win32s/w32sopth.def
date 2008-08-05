@@ -1,0 +1,6 @@
+LIBRARY kernel32
+
+DESCRIPTION 'Win32s OpenThread library'
+
+EXPORTS
+   OpenThread

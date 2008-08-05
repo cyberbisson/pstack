@@ -1,0 +1,96 @@
+
+/** @file addr2ln.rc
+ ** @brief String resources and version info for Addr2ln.
+ **
+ ** @author  Matt Bisson
+ ** @date    7 July, 2008
+ ** @since   Addr2ln 0.1
+ ** @version Addr2ln 0.1
+ **/
+
+#include <winver.h>
+#include <winnt.h>
+
+#include "addr2ln_ns.hpp"
+
+//////////////////////////////////////////////////////////////////////////////
+// Preprocessor mojo:
+//////////////////////////////////////////////////////////////////////////////
+
+#ifdef _PRIVATE_BUILD
+#   define PRERELEASE_FLAGS VS_FF_PRERELEASE
+#else
+#   define PRERELEASE_FLAGS 
+#endif
+
+#ifdef _DEBUG
+#   define FILE_FLAGS PRERELEASE_FLAGS | VS_FF_DEBUG
+#else
+#   define FILE_FLAGS PRERELEASE_FLAGS
+#endif
+
+#define _MAKE_ID_FOR_VERSION_ID(id)     #id
+#define MAKE_PRODUCT_ID(maj,min,patch)                                 \
+    _MAKE_ID_FOR_VERSION_ID(maj)   "."                                 \
+    _MAKE_ID_FOR_VERSION_ID(min)   "."                                 \
+    _MAKE_ID_FOR_VERSION_ID(patch)
+#define MAKE_VERSION_ID(maj,min,patch,bld)                             \
+    _MAKE_ID_FOR_VERSION_ID(maj)   "."                                 \
+    _MAKE_ID_FOR_VERSION_ID(min)   "."                                 \
+    _MAKE_ID_FOR_VERSION_ID(patch) " (build "                          \
+    _MAKE_ID_FOR_VERSION_ID(bld)   ")"
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
+
+//////////////////////////////////////////////////////////////////////////////
+// Version information:
+//////////////////////////////////////////////////////////////////////////////
+
+VS_VERSION_INFO VERSIONINFO 
+    FILEVERSION    ADDR2LN_MAJOR_VERSION,ADDR2LN_MINOR_VERSION,ADDR2LN_PATCH_LEVEL,ADDR2LN_BUILD_NUMBER
+    PRODUCTVERSION ADDR2LN_MAJOR_VERSION,ADDR2LN_MINOR_VERSION,ADDR2LN_PATCH_LEVEL,ADDR2LN_BUILD_NUMBER
+    FILEFLAGSMASK  VS_FFI_FILEFLAGSMASK
+    FILEFLAGS      FILE_FLAGS
+    FILEOS         VOS_NT
+    FILETYPE       VFT_APP
+    FILESUBTYPE    VFT2_UNKNOWN
+    {
+        BLOCK "StringFileInfo"
+        {
+            BLOCK "040904b0"
+            {
+                VALUE "OriginalFilename", TARGET_FILE_NAME
+                VALUE "ProductName",      "Addr2ln"
+                VALUE "InternalName",     "Addr2ln"
+                VALUE "FileDescription",  ADDR2LN_APP_NAME
+                VALUE "ProductVersion",   MAKE_PRODUCT_ID (ADDR2LN_MAJOR_VERSION, ADDR2LN_MINOR_VERSION, ADDR2LN_PATCH_LEVEL)
+                VALUE "FileVersion",      MAKE_VERSION_ID (ADDR2LN_MAJOR_VERSION, ADDR2LN_MINOR_VERSION, ADDR2LN_PATCH_LEVEL, ADDR2LN_BUILD_NUMBER)
+                VALUE "CompanyName",      "Bissonic, Inc."
+                VALUE "LegalCopyright",   "Copyright © 2008 Matt Bisson"
+                VALUE "LegalTrademarks",  "N/A"
+                VALUE "License",          "I don't actually care..."
+                VALUE "Comments",         "No comment..."
+#ifdef _PRIVATE_BUILD
+                VALUE "PrivateBuild",     "For me only"
+                VALUE "SpecialBuild",     "'Special' build."
+#endif
+            }
+        }
+        BLOCK "VarFileInfo"
+        {
+            VALUE "Translation", 0x409, 1200
+        }
+    }
+
+#ifdef USING_I18N_STRINGS
+
+//////////////////////////////////////////////////////////////////////////////
+// Strings:
+//////////////////////////////////////////////////////////////////////////////
+
+STRINGTABLE
+{
+    1234 "tempstring"
+}
+
+#endif
