@@ -85,7 +85,11 @@ public:
             }
             catch (...)
             {
-                /** @todo Leaking memory? */
+                // We can't really do anything here except delete the object and
+                // hope for the best.  The destructor is hidden (because we're
+                // supposed to use shutdown(), so we'll need to find a way to
+                // free the memory by FORCING destruction rules.
+                it->second->force_destroy ();
             }
         }
 
@@ -210,6 +214,8 @@ debug_module& proclib::debug_module::GetDebugger (processId_t processId)
 
 /** @brief Add an object (to the end) of the debug event listener queue.
  **
+ ** If the listener has already been added, this method does nothing.
+ **
  ** @param listener An object derived from the proclib::debug_event_listener
  **     class that will recieve events from the debugger.  The listener must live
  **     at least as long as it remains in the debug module's queue.
@@ -220,9 +226,6 @@ void proclib::debug_module::addListener (proclib::debug_event_listener& listener
     if (m_Listeners.end () != find (
             m_Listeners.begin (), m_Listeners.end (), &listener))
     {
-        /** @todo What to do when we're adding a listener that's
-         **       already there. */
-        fprintf (stderr, "Fuck!  This is already in the list!\n");
         return;
     }
 
@@ -230,6 +233,8 @@ void proclib::debug_module::addListener (proclib::debug_event_listener& listener
 }
 
 /** @brief Remove an object from the debug event listener queue.
+ **
+ ** If the listener has not been added, this method does nothing.
  **
  ** The specified object must be the same instance of the object that was added.
  ** This function will not free any memory or destroy the object passed in.
@@ -244,8 +249,6 @@ void proclib::debug_module::removeListener (
 
     if (m_Listeners.end () == to_remove)
     {
-        /** @todo What to do when removing a non-existent listener. */
-        fprintf (stderr, "Fuck!  This is not already in the list!\n");
         return;
     }
 
@@ -349,7 +352,7 @@ bool proclib::debug_module::pumpEvent (DWORD ms /*=INFINITE*/)
     {
         if (!ContinueDebugEvent (m_ProcessId, m_ActiveThreadId,
 /** @todo How do I pass the Handled state into Windows? */
-//                                 ((debug_listener_distributer.getHandled ()) ?
+//                               ((debug_listener_distributer.getHandled ()) ?
                                  ((true) ?
                                   DBG_CONTINUE : DBG_EXCEPTION_NOT_HANDLED)))
         {
@@ -366,7 +369,7 @@ bool proclib::debug_module::pumpEvent (DWORD ms /*=INFINITE*/)
             GetLastError (), "Cannot debug process %d", m_ProcessId);
     }
 
-    /** @note Side-effect -- m_ActiveThreadId is set here. */
+    /** @sideeffect m_ActiveThreadId is set here. */
     m_ActiveThreadId = debugEvt.dwThreadId;
 
     try

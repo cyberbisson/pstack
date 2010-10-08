@@ -90,6 +90,15 @@ namespace proclib
     /// @name Global Data Types
     //////////////////////////////////////////////////////////////////////////
 
+    /** @brief The process architectures we understand.
+     **/
+    typedef enum
+    {
+        ARCH_X86       = 0,             /**< @brief Intel x86 */
+        ARCH_INTEL_IPF = 1,             /**< @brief Intel Itanium */
+        ARCH_X64       = 2              /**< @brief Intel x64 */
+    } architecture_t;
+
     /** This has to be light weight and point to a valid symbol in some
      ** process_module.
      ** @brief A simple data container for an in-memory symbol (from an

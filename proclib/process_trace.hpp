@@ -74,8 +74,13 @@ private:
     class proclib_debugger : public proclib::debug_event_listener
     {
     public:
-        /** @brief Default constructor hangs on to the process_trace. */
-        explicit proclib_debugger (process_trace& parent) throw ()
+        /** @brief Default constructor hangs on to the process_trace.
+         ** @param parent This parameter must <b>never</b> be NULL.  This
+         **     shouldn't be a problem as long as this class remains private,
+         **     and is initialized with "this" during process_trace
+         **     construction.
+         **/
+        explicit proclib_debugger (process_trace *const parent) throw ()
             : m_Parent (parent) {};
 
     protected:
@@ -86,7 +91,7 @@ private:
 
     private:
         /** @brief We will use this reference to return the debugger's handle. */
-        process_trace& m_Parent;
+        process_trace *const m_Parent;
 
         /** @brief Copying this object is not allowed. */
         proclib_debugger& operator= (const proclib_debugger&) throw ()
@@ -159,7 +164,8 @@ protected:
         throw (psystem::exception::unimplemented_exception,
                psystem::exception::windows_exception);
 
-    void         attach   () throw (psystem::exception::windows_exception);
+    void         attach   ()
+        throw (psystem::exception::windows_exception, std::bad_alloc);
     virtual void init     () throw (psystem::exception::windows_exception);
     virtual void shutdown ();
 
@@ -198,7 +204,7 @@ private:
     moduleList_t m_Modules;
 
     /** @brief We communicate with the debugger through this object. */
-    proclib_debugger m_DebugListener;
+    proclib_debugger *m_DebugListener;
 
 #ifdef _DEBUG
     /** @brief Print a verbose output of all the events the debugger sees. */

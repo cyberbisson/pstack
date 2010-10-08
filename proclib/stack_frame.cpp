@@ -33,20 +33,6 @@ typedef enum
     REG_BACKING_STORE   = 3             /**< @brief Similar to FP (for Itanium)*/
 } register_t;
 
-/** @brief The process architectures we understand.
- **/
-typedef enum
-{
-    ARCH_X86       = 0,                 /**< @brief Intel x86 */
-    ARCH_INTEL_IPF = 1,                 /**< @brief Intel Itanium */
-    ARCH_X64       = 2                  /**< @brief Intel x64 */
-} architecture_t;
-
-/** @brief Cache away the architecture type for this process.
- ** @todo This needs to be moved into process_module and exposed via
- **       process_trace.*/
-static architecture_t g_Architecture = ARCH_X86;
-
 /** Thus far, this matrix contains the x86, Intel Itanium Processor Family (IPF),
  ** and x64 registry names for program counter, frame pointer, stack pointer,
  ** and backing store.
@@ -187,29 +173,31 @@ void proclib::stack_frame::dump_object () throw ()
 {
     printf ("Dumping stack frame:\n");
 
+    const architecture_t cur_arch = m_RelatedModule->getArchitecture ();
+
     /** @todo Make a function that outputs with a hard stop on the number of
      **       characters in the first column of output. */
     printf ("\tProgram Counter (%s): 0x%08I64X\n",
-            s_RegNames[REG_PROGRAM_COUNTER][g_Architecture],
+            s_RegNames[REG_PROGRAM_COUNTER][cur_arch],
             m_StackFrame.AddrPC.Offset);
 
     printf ("\tReturn Address:        0x%08I64X\n", m_StackFrame.AddrReturn.Offset);
 
-    if (ARCH_INTEL_IPF != g_Architecture)
+    if (ARCH_INTEL_IPF != cur_arch)
     {
         printf ("\tFrame Pointer (%s):   0x%08I64X\n",
-                s_RegNames[REG_FRAME_POINTER][g_Architecture],
+                s_RegNames[REG_FRAME_POINTER][cur_arch],
                 m_StackFrame.AddrFrame.Offset);
     }
     else
     {
         printf ("\tBacking Store (%s): 0x%08I64X\n",
-                s_RegNames[REG_BACKING_STORE][g_Architecture],
+                s_RegNames[REG_BACKING_STORE][cur_arch],
                 m_StackFrame.AddrBStore.Offset);
     }
 
     printf ("\tStack Pointer (%s):   0x%08I64X\n",
-            s_RegNames[REG_STACK_POINTER][g_Architecture],
+            s_RegNames[REG_STACK_POINTER][cur_arch],
             m_StackFrame.AddrStack.Offset);
 
     printf ("\tWOW Call:              %s\n",
@@ -217,7 +205,7 @@ void proclib::stack_frame::dump_object () throw ()
     printf ("\tVirtual Frame:         %s\n",
             m_StackFrame.Virtual ? "true" : "false");
 
-    if ((ARCH_X86 == g_Architecture) && (NULL != m_StackFrame.FuncTableEntry))
+    if ((ARCH_X86 == cur_arch) && (NULL != m_StackFrame.FuncTableEntry))
     {
         // !!! Also can come from SymFunctionTableAccess64 
         const FPO_DATA *fpo_data = (FPO_DATA *)m_StackFrame.FuncTableEntry;

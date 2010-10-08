@@ -22,6 +22,10 @@
  **
  ** Call this rather than delete.  This ensures that the virtual functions for
  ** tearing down the object are called.
+ **
+ ** If shutdown() throws an exception, subsequent calls to this method will not
+ ** result in subsequent invocations of shutdown().
+ **
  ** @return This always returns NULL (for convenience of destroying pointers).
  ** @throws std::exception This throws whatever the derived shutdown() method
  **         ultimately throws.
@@ -37,6 +41,32 @@ proclib::trace_object *proclib::trace_object::destroy ()
 
     delete this;
     return NULL;
+}
+
+/** @brief Shutdown and delete memory for trace_object regardless of errors.
+ **
+ ** Call this rather than delete.  This ensures that the virtual functions for
+ ** tearing down the object are called.  If you care about dealing with this
+ ** object in the case of shutdown errors, you should first call destroy(),
+ ** handle the exception, then call this method to finally free up the memory.
+ ** Your shutdown() will not be called twice in this case because the
+ ** trace_object will be in an uninitialized state after destroy() (even on a
+ ** failure).
+ **
+ ** @return This always returns NULL (for convenience of destroying pointers).
+ **/
+proclib::trace_object *proclib::trace_object::force_destroy ()
+    throw ()
+{
+    try
+    {
+        return destroy ();
+    }
+    catch (...)
+    {
+        delete this;
+        return NULL;
+    }
 }
 
 /** @brief Call the init() method if the object has not successully initialized.

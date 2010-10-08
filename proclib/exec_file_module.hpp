@@ -17,9 +17,8 @@
 #include "proclib_ns.hpp"
 #include "trace_object.hpp"
 
-/** @brief An address at which no module can exist.
- ** @todo This should be 0LL or something. */
-#define INVALID_MODULE_BASE             ((psystem::memAddress_t)(~0))
+/** @brief An address at which no module can exist. */
+#define INVALID_MODULE_BASE             ((psystem::memAddress_t)(~0LL))
 
 namespace proclib
 {
@@ -47,6 +46,14 @@ public:
 
     symbol_t getSymbol (const psystem::memAddress_t& location) const;
     symbol_t putSymbol (const symbol_t& symbol);
+
+    /** @brief Return the architecture against which this executable was
+     **     built. */
+    inline architecture_t getArchitecture () const throw ()
+    {
+        /** @todo This returns a hard-coded x86 response. */
+        return ARCH_X86;
+    }
 
     /** @brief Return the expected base memory address for this module's code. */
     inline const psystem::memAddress_t& getModuleBase () const throw ()
@@ -107,6 +114,9 @@ private:
     //////////////////////////////////////////////////////////////////////////
     /// @name Private Member Data
     //////////////////////////////////////////////////////////////////////////
+
+    /** @brief Cache away the architecture type for this process. */
+    architecture_t              m_Architecture;
 
     /** @brief A searchable list of function names contained in this module. */
     functionAddressMap_t        m_FunctionMap;

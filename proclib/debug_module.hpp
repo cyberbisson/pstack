@@ -65,7 +65,7 @@ public:
     void eventLoop          () throw (std::exception);
     void pauseEventLoop     () throw (psystem::exception::windows_exception);
     bool pumpAvailableEvent () throw (std::exception);
-    bool pumpEvent          (DWORD ms = INFINITE) throw (std::exception);;
+    bool pumpEvent          (DWORD ms = INFINITE) throw (std::exception);
 
     virtual void dump_object () throw ();
 

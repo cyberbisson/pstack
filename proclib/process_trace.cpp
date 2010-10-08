@@ -34,7 +34,7 @@ bool proclib::process_trace::proclib_debugger::OnCreateProcess (
     processId_t, threadId_t, const CREATE_PROCESS_DEBUG_INFO& data)
     throw ()
 {
-    m_Parent.setHandle (data.hProcess);
+    m_Parent->setHandle (data.hProcess);
     return true;
 }
 
@@ -223,11 +223,12 @@ proclib::process_trace::process_trace (processId_t processId, bool allThreads)
     : trace_object (INVALID_HANDLE_VALUE),
       m_AllThreads    (allThreads),
       m_ProcessId     (processId),
-      m_DebugListener (*this)  /** @todo Compiler complains about this */
+      m_DebugListener (NULL)
 {
     try
     {
         /** @todo Isn't this a configurable parameter??? */
+        /** @todo debug_module::EnableDebugPrivilege() should go into init() */
         debug_module::EnableDebugPrivilege ();
     }
     catch (psystem::exception::base_exception&)
@@ -240,14 +241,22 @@ proclib::process_trace::process_trace (processId_t processId, bool allThreads)
 
 /** @brief Attach this object's debugger to the associated process.
  **
+ ** @throws std::bad_alloc If memory could not be allocated to listen
+ **     for debugger events.
  ** @throws windows_exception If there is an error connecting to the process.
  **/
 void proclib::process_trace::attach ()
-    throw (psystem::exception::windows_exception)
+    throw (psystem::exception::null_pointer_exception, std::bad_alloc)
 {
     debug_module& debugger = debug_module::GetDebugger (m_ProcessId);
 
-    debugger.addListener (m_DebugListener);
+    if (NULL == m_DebugListener)
+    {
+        m_DebugListener = new proclib_debugger (this);
+        if (NULL == m_DebugListener) throw new std::bad_alloc ();
+    }
+
+    debugger.addListener (*m_DebugListener);
 #ifdef _DEBUG
     debugger.addListener (m_EventDumper);
 #endif
@@ -270,6 +279,8 @@ void proclib::process_trace::init ()
             m_ProcessId);
     }
 
+    /** @todo Rewrite this to use some kind of iterative or recursive algorithm,
+     **     rather than this craziness. */
     DWORD         hr = ERROR_SUCCESS;
     THREADENTRY32 thread;
 
@@ -347,6 +358,19 @@ void proclib::process_trace::init ()
 
 void proclib::process_trace::shutdown ()
 {
+    debug_module& debugger = debug_module::GetDebugger (m_ProcessId);
+#ifdef _DEBUG
+    debugger.removeListener (m_EventDumper);
+#endif
+
+    if (NULL != m_DebugListener)
+    {
+        debugger.removeListener (*m_DebugListener);
+
+        delete m_DebugListener;
+        m_DebugListener = NULL;
+    }
+
     // for each thread
     for (threadList_t::iterator to_dest = m_Threads.begin ();
          to_dest != m_Threads.end ();

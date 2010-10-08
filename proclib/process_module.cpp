@@ -23,7 +23,11 @@
 
 using namespace psystem;
 
-/** @todo remove this hack!! */
+/** @todo Remove this hack!!  This flag is here because we can't query the
+ **     application's command-line options from the (lower-level) psystem
+ **     library.  This is going to have to do something clever, like invoke
+ **     Create with a flag that says whether or not we should load symbols from
+ **     an EXE file. */
 bool g_ImageSymbolsHack = false;
 
 /** @brief Used to cache the file name that belongs to a process.

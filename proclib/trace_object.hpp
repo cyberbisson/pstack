@@ -52,6 +52,7 @@ public:
     virtual void dump_object () throw () = 0;
 
     trace_object *destroy          () throw (std::exception);
+    trace_object *force_destroy    () throw ();
     void          init_or_throw    () throw (std::exception);
     void          reuse            () throw (std::exception);
 
