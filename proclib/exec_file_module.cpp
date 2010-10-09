@@ -85,7 +85,13 @@ proclib::exec_file_module::exec_file_module (
 
 void proclib::exec_file_module::dump_object () throw ()
 {
+    printf ("EXEC-MODULE (0x%08I64X):\n", this);
+    printf ("\tm_ModuleFile:    %s\n",        m_ModuleFile.c_str ());
+    printf ("\tm_ModuleBase:    0x%08I64X\n", m_ModuleBase);
+    printf ("\tm_MsvcGenerated: %s\n",
+            m_MsvcGenerated ? "true" : "false");
 
+    fflush (stdout);
 }
 
 void proclib::exec_file_module::init ()

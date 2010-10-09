@@ -331,13 +331,15 @@ bool proclib::debug_module::pumpAvailableEvent () throw (std::exception)
  ** @param ms The timeout in milliseconds to wait for a debug event.  If this is
  **     given as "INFINITE", this function will wait forever (until it recieves
  **     an event).
- ** @return If an event was seen, this returns true if any listeners said they
- **     handled it.  If no events were seen, it will return false.
+ ** @return If an event was seen, this returns true if and only if a listener
+ **     said they handled it.  In all other cases, it will return false.
  ** @throws internal_exception If one of the listeners threw an error that was
  **     not derived from std::exception.
  ** @throws windows_exception If there was a problem either continuing execution
  **     or trying to receive debugger events.
- ** @throws std::exception If one of the listeners threw an error.
+ ** @throws std::exception If one of the listeners threw an error.  Given this
+ **     behavior, it must be noted that <b>event handling cannot continue</b>
+ **     after any handlers throw an exception.  Write your handlers carefully.
  ** @todo All these exceptions are entangled!  We need exceptions that are less
  **     generic so callers can tell where the problems are.
  **/
@@ -350,11 +352,14 @@ bool proclib::debug_module::pumpEvent (DWORD ms /*=INFINITE*/)
 
     if ((0 < ms) && (0 != m_ActiveThreadId))
     {
-        if (!ContinueDebugEvent (m_ProcessId, m_ActiveThreadId,
-/** @todo How do I pass the Handled state into Windows? */
-//                               ((debug_listener_distributer.getHandled ()) ?
-                                 ((true) ?
-                                  DBG_CONTINUE : DBG_EXCEPTION_NOT_HANDLED)))
+        // DBG_EXCEPTION_NOT_HANDLED means that if the last event was
+        // EXCEPTION_DEBUG_EVENT, continuing this debugged thread must allow the
+        // original exception processing to continue.  Oddly, DBG_CONTINUE
+        // essentially IGNORES the exception, so we don't use it.  If we have
+        // not seen an EXCEPTION_DEBUG_EVENT, either value continues execution
+        // identically.
+        if (!ContinueDebugEvent (
+                m_ProcessId, m_ActiveThreadId, DBG_EXCEPTION_NOT_HANDLED))
         {
             THROW_WINDOWS_EXCEPTION_F(
                 GetLastError (), "Cannot continue process %d", m_ProcessId);
@@ -371,6 +376,9 @@ bool proclib::debug_module::pumpEvent (DWORD ms /*=INFINITE*/)
 
     /** @sideeffect m_ActiveThreadId is set here. */
     m_ActiveThreadId = debugEvt.dwThreadId;
+
+    // EITHER SET THIS VALUE OR DON'T RETURN (i.e., throw an exception).
+    bool retval;
 
     try
     {
@@ -405,6 +413,8 @@ bool proclib::debug_module::pumpEvent (DWORD ms /*=INFINITE*/)
             std::for_each (
                 m_Listeners.begin (), m_Listeners.end (),
                 _debug_listener_distributer (debugEvt));
+
+        retval = debug_listener_distributer.getHandled ();
     }
     catch (std::exception&)
     {
@@ -420,12 +430,20 @@ bool proclib::debug_module::pumpEvent (DWORD ms /*=INFINITE*/)
             "Unknown exception while receiving a debugger event");
     }
 
-    return false;
+    return retval;
 }
 
 void proclib::debug_module::dump_object () throw ()
 {
-    /** @todo Something. */
+    printf ("DEBUGGER (0x%08I64X):\n", this);
+    printf ("\tm_ProcessId:       %u\n", m_ProcessId);
+    printf ("\tm_ActiveThreadId:  %u\n", m_ActiveThreadId);
+    printf ("\ts_Listeners size:  %u\n", m_Listeners.size ());
+    printf ("\tm_ContinueLooping: %s\n", m_ContinueLooping ? "true" : "false");
+    printf ("\ts_UsingAdmin:      %s\n",
+            debug_module::s_UsingAdmin ? "true" : "false");
+
+    fflush (stdout);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -522,8 +540,24 @@ void proclib::debug_module::init () throw (psystem::exception::windows_exception
 void proclib::debug_module::shutdown ()
     throw (psystem::exception::windows_exception)
 {
-    /** @todo Depending on what events we recieve, we will have to do 
-     **       CloseHandle() here.  See DEBUG_EVENT reference in MSDN.
+    /** @todo \htmlonly Need to call CloseHandle for some events -- MSDN:
+     ** <p>
+     ** When a CREATE_PROCESS_DEBUG_EVENT occurs, the debugger application
+     ** receives a handle to the image file of the process being debugged,
+     ** a handle to the process being debugged, and a handle to the initial
+     ** thread of the process being debugged in the DEBUG_EVENT structure.  The
+     ** members these handles are returned in are u.CreateProcessInfo.hFile
+     ** (image file), u.CreateProcessInfo.hProcess (process), and
+     ** u.CreateProcessInfo.hThread  (initial thread). If the system previously
+     ** reported an EXIT_PROCESS_DEBUG_EVENT debugging event, the system closes
+     ** the handles to the process and thread when the debugger calls the
+     ** ContinueDebugEvent function. The debugger should close the handle to the
+     ** image file by calling the CloseHandle function.
+     ** <p>
+     ** When a LOAD_DLL_DEBUG_EVENT occurs, the debugger application receives a
+     ** handle to the loaded DLL in the u.LoadDll.hFile member of the
+     ** DEBUG_EVENT structure. This handle should be closed by the debugger
+     ** \endhtmlonly
      **/
     if (!DebugActiveProcessStop (m_ProcessId))
     {

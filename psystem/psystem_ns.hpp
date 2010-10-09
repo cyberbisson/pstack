@@ -63,6 +63,51 @@
 #   endif // _DEBUG
 #endif // ASSERT
 
+/** @def DESTRUCTOR_DELETE
+ ** @brief This will delete <i>member</i> and possibly set it to
+ **     <code>NULL</code>.
+ **
+ ** If <code>_DEBUG</code> is not defined, this is a simple deallocation.
+ ** @param member a (non-aggregate) member variable to deallocate from the heap.
+ **/
+#ifdef _DEBUG
+#   define DESTRUCTOR_DELETE(member)                    \
+    if (NULL != member) delete member; member = NULL
+#else
+#   define DESTRUCTOR_DELETE(member) delete member
+#endif
+
+#ifdef _DEBUG
+/** @def LOG
+ ** @brief Send a simple message to the trace log.
+ **
+ ** This does nothing unless _DEBUG is defined.
+ ** @param msg a printf-style message.
+ ** @param ... anything.
+ **/
+#   define LOG(msg)                          \
+    {                                        \
+        fprintf (stderr, msg);               \
+    }
+
+/** @def LOG_F
+ ** @brief Send a formatted message to the trace log.
+ **
+ ** This does nothing unless _DEBUG is defined.
+ ** @param msg a printf-style message.
+ ** @param ... anything.
+ **
+ ** @todo psystem::format_text
+ **/
+#   define LOG_F(msg,...)                                             \
+    {                                                                 \
+        fprintf (stderr, psystem::format_text (msg, __VA_ARGS__));    \
+    }
+#else
+#   define LOG(msg)
+#   define LOG_F(msg,...)
+#endif // _DEBUG
+
 /** @brief Informational name of this application. */
 #define PSYSTEM_APP_NAME                "PSYSTEM (Proclib Subsystem)"
 

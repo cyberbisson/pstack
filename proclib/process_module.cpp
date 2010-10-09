@@ -145,6 +145,8 @@ proclib::process_module::process_module (
 
 void proclib::process_module::dump_object () throw ()
 {
+    // -- NOT calling super-class...
+
     printf ("MODULE (0x%08I64X):\n", this);
     printf ("\tm_ModuleName:    %s\n",        m_ModuleName.c_str ());
     printf ("\tm_ModuleFile:    %s\n",        getModuleFile().c_str ());
