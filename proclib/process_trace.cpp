@@ -14,6 +14,7 @@
 
 #include <dbghelp.hpp>
 #include <debug_module.hpp>
+#include <not_found_exception.hpp>
 #include <process_module.hpp>
 #include <thread_trace.hpp>
 #include <trace_object.hpp>
@@ -92,7 +93,7 @@ proclib::symbol_t proclib::process_trace::findSymbol (
     {
         return module.getSymbol (location);
     }
-    catch (const char *)
+    catch (proclib::not_found_exception&)
     {
         memAddress_t codeOffset  = NULL;
         const size_t kSymbolSize =
@@ -107,8 +108,7 @@ proclib::symbol_t proclib::process_trace::findSymbol (
         if (!psystem::dbghelp::SymFromAddr (
                 getProcessHandle (), location, &codeOffset, symbolInfo))
         {
-            /** @todo Bullshit exception... */
-            throw "";
+            throw proclib::not_found_exception(__FILE__, __FUNCTION__, __LINE__);
         }
 
         symbol_t symbol;
@@ -151,12 +151,17 @@ const proclib::process_module& proclib::process_trace::findModule (
     const memAddress_t base =
         psystem::dbghelp::SymGetModuleBase64 (getProcessHandle (), location);
 
-    /** @todo Bullshit exception... */
-    if (NULL == base) throw "NOTFOUND";
+    if (NULL == base)
+    {
+        throw proclib::not_found_exception (__FILE__, __FUNCTION__, __LINE__);
+    }
 
     moduleList_t::const_iterator found = m_Modules.find (base);
-    /** @todo Bullshit exception... */
-    if ((m_Modules.end () == found) || (NULL == found->second)) throw "NOTFOUND";
+
+    if ((m_Modules.end () == found) || (NULL == found->second))
+    {
+        throw proclib::not_found_exception (__FILE__, __FUNCTION__, __LINE__);
+    }
 
     return *(found->second);
 }
@@ -391,6 +396,11 @@ void proclib::process_trace::shutdown ()
     {
         /** @todo Check for return codes! */
     }
+
+    /** @note Nobody is the "owner" of the debug_module objects, but since we
+     **     started things off in attach(), we will have to destroy the debugger
+     **     associated with the PID the we are tracing. */
+    debugger.destroy ();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -431,6 +441,10 @@ void proclib::process_trace::initSymbols () const
         psystem::dbghelp::SymInitialize (getProcessHandle (), NULL, false);
     }
     catch (psystem::exception::null_pointer_exception&)
+    {
+        // SEE TODO...
+    }
+    catch (std::bad_alloc&)
     {
         // SEE TODO...
     }

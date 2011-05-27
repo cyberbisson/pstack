@@ -239,6 +239,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\not_found_exception.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\not_found_exception.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\process_module.cpp"
 			>
 		</File>

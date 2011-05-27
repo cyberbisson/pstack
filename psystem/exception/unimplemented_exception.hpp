@@ -1,6 +1,6 @@
 
 /** @file unimplemented_exception.hpp
- ** @brief Declare the ui_exception class.
+ ** @brief Declare the unimplemented_exception class.
  **
  ** @author  Matt Bisson
  ** @date    25 November, 2007

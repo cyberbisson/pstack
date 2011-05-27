@@ -87,7 +87,7 @@
  **/
 #   define LOG(msg)                          \
     {                                        \
-        fprintf (stderr, msg);               \
+        fprintf (stderr, "%s", msg);         \
     }
 
 /** @def LOG_F
@@ -96,12 +96,10 @@
  ** This does nothing unless _DEBUG is defined.
  ** @param msg a printf-style message.
  ** @param ... anything.
- **
- ** @todo psystem::format_text
  **/
-#   define LOG_F(msg,...)                                             \
-    {                                                                 \
-        fprintf (stderr, psystem::format_text (msg, __VA_ARGS__));    \
+#   define LOG_F(msg,...)                       \
+    {                                           \
+        fprintf (stderr, msg, __VA_ARGS__);     \
     }
 #else
 #   define LOG(msg)
@@ -158,6 +156,12 @@ namespace psystem
 
     /** @brief Why is there no "byte" primitive type in C++? */
     typedef unsigned char byte_t;
+
+    //////////////////////////////////////////////////////////////////////////
+    /// @name Namespace-Global Functions
+    //////////////////////////////////////////////////////////////////////////
+
+    const char *format_text (const char *msg, ...);
 }
 #endif
 

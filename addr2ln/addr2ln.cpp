@@ -22,6 +22,7 @@ using namespace psystem;
 
 /** @todo We need an options class for addr2ln! */
 const char *pn;
+
 namespace proclib
 {
     namespace demangle
@@ -33,7 +34,6 @@ namespace proclib
     }
 
     using namespace proclib::demangle::gcc;
-
 }
 
 //////////////////////////////////////////////////////////////////////////////

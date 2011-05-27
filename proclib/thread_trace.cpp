@@ -176,8 +176,8 @@ STACKFRAME64 proclib::thread_trace::initStackContext () const
     memset (&context, 0, sizeof (context));
     context.ContextFlags = CONTEXT_FULL;
 
-    /** @note The big fucking secret is that if you don't initialize the
-     **       STACKFRAME64 object with thread context, StackWalk64 will fail. */
+    /** @note The big secret is that if you don't initialize the STACKFRAME64
+     **       object with thread context, StackWalk64 will fail. */
 
     if (!GetThreadContext (getThreadHandle (), &context))
     {

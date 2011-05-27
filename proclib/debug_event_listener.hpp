@@ -28,8 +28,6 @@ namespace proclib
  ** In order to use the debugger that fired an event (from within the context
  ** of a callback function), use proclib::debug_module::GetDebugger().
  **
- ** @todo I'm not sure, but this class may not preserve any side-effects from
- **     within one of the event handlers...
  ** @author  Matt Bisson
  ** @date    8 February, 2008
  ** @since   Proclib 1.2

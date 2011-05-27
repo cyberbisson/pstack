@@ -10,7 +10,12 @@
  **/
 
 /** @page addr2ln Address-to-line (Addr2ln) Reference
- ** @todo Something cool here.
+ **
+ ** This is a fairly simple application that exercises a decent amount of the
+ ** proclib functionality.  Given an executable module file and an address, this
+ ** application will attempt to look up the function name (and line number) that
+ ** corresponds to that offset.  In other words, given a program counter
+ ** address, one can look up where in the code the program is executing.
  **/
 
 /** @dir addr2ln

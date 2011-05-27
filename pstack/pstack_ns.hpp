@@ -35,6 +35,8 @@
  ** designed for PStack), "proclib."  The application itself is rather simple.
  ** It just calls out to proclib for a list or threads, and iterates over them,
  ** printing their stack traces.</p>
+ **
+ ** @see Process Debugging Library (Proclib) Reference
  **/
 
 /** @dir pstack

@@ -1,17 +1,17 @@
 
-/** @file unimplemented_exception.cpp
- ** @brief Declare the unimplemented_exception class.
+/** @file not_found_exception.cpp
+ ** @brief Declare the not_found_exception class.
  **
  ** @author  Matt Bisson
- ** @date    25 November, 2007
- ** @since   PSystem 1.0
- ** @version PSystem 1.3
+ ** @date    25 May, 2011
+ ** @since   Proclib 1.3
+ ** @version Proclib 1.3
  **/
 
 #include <stdarg.h>
-#include "unimplemented_exception.hpp"
+#include "not_found_exception.hpp"
 
-using namespace psystem::exception;
+using namespace proclib;
 
 /** @brief This constructor initializes the object with a contextual message
  **        given by the caller.
@@ -21,7 +21,7 @@ using namespace psystem::exception;
  ** @param line The line number in <i>file</i> where the exception occurred.
  ** @param msg A "printf" style format to describe this exception.
  **/
-psystem::exception::unimplemented_exception::unimplemented_exception (
+proclib::not_found_exception::not_found_exception (
     const char *file,  const char *function, int line, const char *msg, ...)
     throw ()
     : internal_exception (file, function, line)
@@ -42,7 +42,7 @@ psystem::exception::unimplemented_exception::unimplemented_exception (
  ** @param function The offending function's name (or NULL).
  ** @param line The line number in <i>file</i> where the exception occurred.
  **/
-psystem::exception::unimplemented_exception::unimplemented_exception (
+proclib::not_found_exception::not_found_exception (
     const char *file,  const char *function, int line)
     throw ()
     : internal_exception (file, function, line)

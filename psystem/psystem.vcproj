@@ -223,6 +223,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\psystem.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\psystem.rc"
 			>
 		</File>

@@ -9,6 +9,8 @@
 
 #include <windows.h>
 
+#include <not_found_exception.hpp>
+
 #include <exception/null_pointer_exception.hpp>
 #include <exception/windows_exception.hpp>
 
@@ -51,12 +53,13 @@ proclib::symbol_t proclib::exec_file_module::getSymbol (
         return symbol;
     }
 
-    throw "";
+    throw proclib::not_found_exception (__FILE__, __FUNCTION__, __LINE__);
 }
 
 proclib::symbol_t proclib::exec_file_module::putSymbol (const symbol_t& symbol)
 {
-    if ((NULL == symbol.address) || (NULL == symbol.name)) throw "";
+    /** Bad exceptions. */
+    if ((NULL == symbol.address) || (NULL == symbol.name)) throw "Illegal args";
 
     init_or_throw ();
 
@@ -98,7 +101,8 @@ void proclib::exec_file_module::init ()
 {
     if (m_ModuleFile.empty ())
     {
-        throw "Fuck!  This shit is empty!!";
+        /** @todo Better exception... */
+        throw "!  This is empty!!";
     }
 
     if (0 == strcmpi (
@@ -175,7 +179,8 @@ void proclib::exec_file_module::findModuleBase (const memAddress_t /*fileBase*/)
     /** @todo */
 }
 
-void proclib::exec_file_module::searchBytesForSymbols (const memAddress_t fileBase)
+void proclib::exec_file_module::searchBytesForSymbols (
+    const memAddress_t fileBase)
 {
     if (NULL == fileBase)
     {
@@ -194,6 +199,7 @@ void proclib::exec_file_module::searchBytesForSymbols (const memAddress_t fileBa
             (NULL == ntHeader.FileHeader.PointerToSymbolTable) ||
             (IMAGE_NT_OPTIONAL_HDR_MAGIC != ntHeader.OptionalHeader.Magic))
         {
+            /** Bad exceptions. */
             throw "Not a Portable Executable (PE) EXE\n";
         }
 
@@ -242,6 +248,7 @@ void proclib::exec_file_module::searchBytesForSymbols (const memAddress_t fileBa
     }
     else
     {
+        /** Bad exceptions. */
         throw "Not a Portable Executable (PE) EXE\n";
     }
 }

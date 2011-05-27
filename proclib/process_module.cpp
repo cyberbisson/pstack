@@ -36,8 +36,7 @@ bool g_ImageSymbolsHack = false;
  ** @date    25 November, 2007
  ** @since   Proclib 1.0
  ** @version Proclib 1.3
- ** @todo This shouldn't be used any longer.
- ** @deprecated Boo!
+ ** @deprecated This shouldn't be used any longer.
  **/
 static struct cached_procfile
 {
@@ -50,15 +49,12 @@ static struct cached_procfile
         // Gigitty goo
     }
 
+    /** @brief The file name containing executable code. */
     std::string         file_name;
-    proclib::hProcess_t process_handle;  /** @todo Make ALL handles references */
+
+    /** @brief The running process' handle. */
+    proclib::hProcess_t process_handle;
 } s_ProcessFileName;
-
-/** @todo Create an IOptions interface so this code can be used in multiple apps?
- **/
-
-/** @todo What if HMODULE is a different size than HANDLE.  Perhaps handles
- **       should be wrapped in a class.*/
 
 //////////////////////////////////////////////////////////////////////////////
 // Public Interface
@@ -76,13 +72,26 @@ proclib::process_module *proclib::process_module::Create (
     return ret;
 }
 
-/** @todo Do we even use this function any more?? */
+/** @brief This is a utility method to get the fully qualified path to the
+ **     process' source module.
+ **
+ ** @param hProcess the open handle to the process we wish to examine.
+ ** @return a fully qualified path to the module that contains the executable
+ **     code for the loaded process module.
+ **
+ ** @throws std::bad_alloc If memory could not be allocated during the execution
+ **     of this algorithm.
+ ** @throws null_pointer_exception If the handle, <code>hProcess</code> was
+ **     invalid.
+ ** @throws windows_exception If there is a problem associating the module with
+ **     a file on disk.
+ **/
 const std::string& proclib::process_module::GetProcessFileName (
     const hProcess_t& hProcess)
     throw (psystem::exception::null_pointer_exception,
-           psystem::exception::windows_exception)
+           psystem::exception::windows_exception,
+           std::bad_alloc)
 {
-    // Fuck off with your NULL handles
     if ((INVALID_HANDLE_VALUE == hProcess) || (NULL == hProcess))
     {
         throw psystem::exception::null_pointer_exception (
@@ -95,7 +104,6 @@ const std::string& proclib::process_module::GetProcessFileName (
         return s_ProcessFileName.file_name;
     }
 
-    /** @todo CHECK ALL ALLOCATIONS FOR SUCCESS!!! */
     char *moduleName = new char [MAX_PATH];
     if (NULL == moduleName)
     {
@@ -232,7 +240,10 @@ void proclib::process_module::init ()
 
     memset (&mbi, 0, sizeof (mbi));
 
-    if (!VirtualQueryEx (m_ParentProcess.getProcessHandle (), (void *)getModuleBase (), &mbi, sizeof (mbi)))
+    if (!VirtualQueryEx (
+            m_ParentProcess.getProcessHandle (),
+            (void *)getModuleBase (),
+            &mbi, sizeof (mbi)))
     {
         THROW_WINDOWS_EXCEPTION_F(
             GetLastError (), "Cannot find module with address 0x%08X",
@@ -240,13 +251,16 @@ void proclib::process_module::init ()
     }
 
 ////////////////////////////////
+    /** @todo This code needs clean-up. */
     {
         char szModName[MAX_PATH];
 
         setHandle ((hModule_t)mbi.AllocationBase);
 
         if (0 != psystem::psapi::GetModuleFileNameExA (
-                m_ParentProcess.getProcessHandle (), getModuleHandle (), szModName, sizeof (szModName)))
+                m_ParentProcess.getProcessHandle (),
+                getModuleHandle (),
+                szModName, sizeof (szModName)))
         {
             setModuleFile (szModName);
         }
@@ -256,7 +270,9 @@ void proclib::process_module::init ()
         }
 
         if (0 != psystem::psapi::GetModuleBaseNameA (
-                m_ParentProcess.getProcessHandle (), getModuleHandle (), szModName, sizeof (szModName)))
+                m_ParentProcess.getProcessHandle (),
+                getModuleHandle (),
+                szModName, sizeof (szModName)))
         {
             m_ModuleName = szModName;
         }

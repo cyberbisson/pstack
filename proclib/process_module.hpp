@@ -44,6 +44,11 @@ namespace proclib
  ** @date    25 November, 2007
  ** @since   Proclib 1.0
  ** @version Proclib 1.3
+ **
+ ** @todo Create an IOptions interface so this code can be used in multiple apps?
+ **
+ ** @todo What if HMODULE is a different size than HANDLE.  Perhaps handles
+ **       should be wrapped in a class.
  **/
 class process_module : public proclib::exec_file_module
 {
@@ -59,7 +64,8 @@ public:
 
     static const std::string& GetProcessFileName (const hProcess_t& hProcess)
         throw (psystem::exception::null_pointer_exception,
-               psystem::exception::windows_exception);
+               psystem::exception::windows_exception,
+               std::bad_alloc);
 
     /** @brief Return the run-time module name (this is not necessarily the file
      **        name, but commonly is). */

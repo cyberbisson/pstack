@@ -479,8 +479,6 @@ proclib::debug_module::debug_module (processId_t processId)
             __FILE__, __FUNCTION__, __LINE__,
             "Only one debugger allowed at a time");
     }
-
-    s_Debuggers->insert (debuggers_t::value_type (processId, this));
 }
 
 /** @brief Clean up and remove this debugger.
@@ -491,7 +489,6 @@ proclib::debug_module::debug_module (processId_t processId)
 proclib::debug_module::~debug_module ()
     throw ()
 {
-    if (NULL != s_Debuggers) s_Debuggers->erase (m_ProcessId);
 }
 
 /** @brief Allocate, and construct a debugger object.
@@ -516,6 +513,8 @@ proclib::debug_module *proclib::debug_module::Create (processId_t processId)
  **/
 void proclib::debug_module::init () throw (psystem::exception::windows_exception)
 {
+    s_Debuggers->insert (debuggers_t::value_type (m_ProcessId, this));
+
     if (!DebugActiveProcess (m_ProcessId))
     {
         THROW_WINDOWS_EXCEPTION_F(
@@ -564,4 +563,6 @@ void proclib::debug_module::shutdown ()
         THROW_WINDOWS_EXCEPTION_F(
             GetLastError (), "Cannot detach from process %d", m_ProcessId);
     }
+
+    if (NULL != s_Debuggers) s_Debuggers->erase (m_ProcessId);
 }

@@ -11,6 +11,7 @@
 #include <windows.h>
 
 #include <dbghelp.hpp>
+#include <not_found_exception.hpp>
 #include <process_trace.hpp>
 #include <process_module.hpp>
 #include <thread_trace.hpp>
@@ -261,7 +262,7 @@ void proclib::stack_frame::init () throw ()
          **       reference when the underlying process_module dies? */
         m_RelatedModule = &(kProc.findModule (m_StackFrame.AddrPC.Offset));
     }
-    catch (...)
+    catch (proclib::not_found_exception&)
     {
         /** @todo If I throw here, I might catch an exception I don't really
          **       care about... */
@@ -270,10 +271,11 @@ void proclib::stack_frame::init () throw ()
     try
     {
         const symbol_t& symbol = kProc.findSymbol (m_StackFrame.AddrPC.Offset);
-        m_CodeOffset = m_StackFrame.AddrPC.Offset - symbol.address;
-        m_FunctionName = symbol.name;
+
+        m_CodeOffset           = m_StackFrame.AddrPC.Offset - symbol.address;
+        m_FunctionName         = symbol.name;
     }
-    catch (const char *)
+    catch (proclib::not_found_exception&)
     {
         //
     }
