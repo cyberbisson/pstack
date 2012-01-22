@@ -153,6 +153,7 @@ void proclib::exec_file_module::init ()
         }
         catch (...)
         {
+            /** @todo Use scoped object for cleanup. */
             UnmapViewOfFile ((void *)fileBase);
             CloseHandle (hFileMapping);
             CloseHandle (hFile);

@@ -13,6 +13,7 @@
 
 #include "dbghelp.hpp"
 
+/** @brief Static singleton instance of the DbgHelp.dll helper module. */
 static psystem::dbghelp d;
 
 //////////////////////////////////////////////////////////////////////////////

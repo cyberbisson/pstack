@@ -227,6 +227,7 @@ void psystem::runtime_library::checkVersionInfo ()
     }
     catch (...)
     {
+        /** Use scoped object for cleanup */
         delete [] vi_buf;
         throw;
     }

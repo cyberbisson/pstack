@@ -160,6 +160,7 @@ void proclib::debug_module::EnableDebugPrivilege (bool enable /*=true*/)
     }
     catch (...)
     {
+        /** @todo Use scoped object */
         if (NULL != hToken) CloseHandle (hToken);
         throw;
     }

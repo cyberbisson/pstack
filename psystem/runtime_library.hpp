@@ -32,6 +32,11 @@ namespace psystem
  ** the DLL will have a specific datatype associated with it, this will make it
  ** possible to specialize the template function,
  ** runtime_library::loadFunction ()
+ **
+ ** @tparam F The template parameter must be a function signature &mdash; one
+ **    that matches the shared-library object that this object loads and
+ **    executes.
+ **
  ** @author  Matt Bisson
  ** @date    17 July, 2008
  ** @since   Proclib 1.3
@@ -162,6 +167,7 @@ public:
     //////////////////////////////////////////////////////////////////////////
 
     /** @brief Automatically load the correct function based on type.
+     ** @tparam T T is expected to be derived from psystem::runtime_function.
      ** @return This returns a function object of type T.  T is expected to be
      **         derived from psystem::runtime_function.
      ** @throws dll_load_exception If there was a problem either loading the DLL
@@ -171,6 +177,7 @@ public:
         throw (psystem::exception::dll_load_exception);
 
     /** @brief Find the virtual address of a function (by name) and return it.
+     ** @tparam T T is expected to be derived from psystem::runtime_function.
      ** @param func_name The exported symbol name to load.
      ** @return This returns a function of type T.  It should never return NULL.
      ** @throws null_pointer_exception If func_name is NULL.
@@ -243,7 +250,7 @@ private:
  ** a specific function type.  It assumes that the template should use a class
  ** that can be constructed with a single FARPROC argument.  This class is
  ** expected to belong in the psystem namespace, and have a class name in the
- ** form of fn##F.  If this doesn't work for you, you're on your own!
+ ** form of fn[F].  If this doesn't work for you, you're on your own!
  ** @param F The name of the Win32 function that lives in the DLL.
  ** @relates psystem::runtime_library
  **/
