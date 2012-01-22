@@ -111,58 +111,73 @@ void proclib::exec_file_module::init ()
         /** @todo Read from the image (if asked) and insert the symbols */
         printf ("\nReading symbols from \"%s\"\n", m_ModuleFile.c_str());
 
-        HANDLE hFile;
-        HANDLE hFileMapping;
-        memAddress_t fileBase;
-    
-        if (INVALID_HANDLE_VALUE == (hFile = CreateFile (
-                                         m_ModuleFile.c_str(), GENERIC_READ,
-                                         FILE_SHARE_READ, NULL, OPEN_EXISTING,
-                                         FILE_ATTRIBUTE_NORMAL, 0)))
+        /** @todo Find a way to shrink the verbosity of these self-cleaning
+         **     objects. */
+
+        struct created_file
         {
-            THROW_WINDOWS_EXCEPTION_F(
-                GetLastError (), "Cannot open executable image \"%s\"",
-                m_ModuleFile.c_str ());
-        }
+            HANDLE hFile;
 
-        if (NULL == (hFileMapping = CreateFileMapping (
-                         hFile, NULL, PAGE_READONLY, 0, 0, NULL)))
+            explicit created_file (const exec_file_module& self)
+            {
+                if (INVALID_HANDLE_VALUE ==
+                    (hFile = CreateFile (
+                        self.m_ModuleFile.c_str(), GENERIC_READ,
+                        FILE_SHARE_READ, NULL, OPEN_EXISTING,
+                        FILE_ATTRIBUTE_NORMAL, 0)))
+                {
+                    THROW_WINDOWS_EXCEPTION_F(
+                        GetLastError (), "Cannot open executable image \"%s\"",
+                        self.m_ModuleFile.c_str ());
+                }
+            };
+
+            ~created_file () { CloseHandle (hFile); };
+        } cf (*this);
+
+        struct created_file_mapping
         {
-            CloseHandle (hFile);
+            HANDLE hFileMapping;
 
-            THROW_WINDOWS_EXCEPTION_F(
-                GetLastError (), "Cannot create memory map for image -- \"%s\"",
-                m_ModuleFile.c_str ())
-        }
+            explicit created_file_mapping (
+                const exec_file_module& self, const created_file& cf)
+            {
+                if (NULL == (hFileMapping = CreateFileMapping (
+                                 cf.hFile, NULL, PAGE_READONLY, 0, 0, NULL)))
+                {
+                    THROW_WINDOWS_EXCEPTION_F(
+                        GetLastError (),
+                        "Cannot create memory map for image -- \"%s\"",
+                        self.m_ModuleFile.c_str ());
+                }
+            };
 
-        if (NULL == (fileBase = (memAddress_t)MapViewOfFile (
-                         hFileMapping, FILE_MAP_READ, 0, 0, 0)))
+            ~created_file_mapping () { CloseHandle (hFileMapping); };
+        } cfm (*this, cf);
+
+
+        struct map_view_of_file
         {
-            CloseHandle (hFileMapping);
-            CloseHandle (hFile);
+            memAddress_t fileBase;
 
-            THROW_WINDOWS_EXCEPTION_F(
-                GetLastError (), "Cannot map \"%s\" into memory to find symbols",
-                m_ModuleFile.c_str ());
-        }
+            explicit map_view_of_file (
+                const exec_file_module& self, const created_file_mapping& cfm)
+            {
+                if (NULL == (fileBase = (memAddress_t)MapViewOfFile (
+                                 cfm.hFileMapping, FILE_MAP_READ, 0, 0, 0)))
+                {
+                    THROW_WINDOWS_EXCEPTION_F(
+                        GetLastError (),
+                        "Cannot map \"%s\" into memory to find symbols",
+                        self.m_ModuleFile.c_str ());
+                }
+            }
 
-        try
-        {
-            if (INVALID_MODULE_BASE == m_ModuleBase) findModuleBase (fileBase);
-            searchBytesForSymbols (fileBase);
-        }
-        catch (...)
-        {
-            /** @todo Use scoped object for cleanup. */
-            UnmapViewOfFile ((void *)fileBase);
-            CloseHandle (hFileMapping);
-            CloseHandle (hFile);
-            throw;
-        }
+            ~map_view_of_file () { UnmapViewOfFile ((void *)fileBase); }
+        } mvof (*this, cfm);
 
-        UnmapViewOfFile ((void *)fileBase);
-        CloseHandle (hFileMapping);
-        CloseHandle (hFile);
+        if (INVALID_MODULE_BASE == m_ModuleBase) findModuleBase (mvof.fileBase);
+        searchBytesForSymbols (mvof.fileBase);
     }
 }
 
