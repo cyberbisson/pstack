@@ -35,7 +35,7 @@ proclib::debug_event_listener::~debug_event_listener () throw (std::exception)
 
 /** @brief Given a debug event, dispatch to the correct callback.
  **
- ** @param evt The OS-specific debug event.
+ ** @param[in] evt The OS-specific debug event.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception Events are allowed to throw any derivative of
  **     std::exception.
@@ -97,9 +97,9 @@ bool proclib::debug_event_listener::dispatchEvent (const DEBUG_EVENT& evt)
 
 /** @brief Called when the debugger attaches to or creates a process.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -113,9 +113,9 @@ bool proclib::debug_event_listener::OnCreateProcess (
 
 /** @brief Called when the debugged process starts a new thread execution.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -132,9 +132,9 @@ bool proclib::debug_event_listener::OnCreateThread (
  ** @todo Excecution of the debugger cannot continue after this error?  What do
  **     I need to do here?
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -149,9 +149,9 @@ bool proclib::debug_event_listener::OnDebuggerError (
 /** @brief Called when the application being debugged sends data back to the
  **        debugger.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -171,9 +171,9 @@ bool proclib::debug_event_listener::OnDebugString (
  ** Ctrl-C, OnException() gets called.  This is so you can interactively stop a
  ** running application and break into the debugger. 
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -187,9 +187,9 @@ bool proclib::debug_event_listener::OnException (
 
 /** @brief Called during termination of the debugged process.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -203,9 +203,9 @@ bool proclib::debug_event_listener::OnExitProcess (
 
 /** @brief Called when a thread is about to be removed.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -219,9 +219,9 @@ bool proclib::debug_event_listener::OnExitThread (
 
 /** @brief Called when the process loads an external module.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -236,9 +236,9 @@ bool proclib::debug_event_listener::OnLoadDll (
 /** @brief Called when an event comes from the debugger that dispatchEvent()
  **        does not understand.
  **
- ** @param evt The original event object (for more specific uses).
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
+ ** @param[in] evt The original event object (for more specific uses).
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.
@@ -252,9 +252,9 @@ bool proclib::debug_event_listener::OnUnknownEvent (
 
 /** @brief Called when the last open handle to a DLL gets released.
  **
- ** @param pid The process ID of the debugged application.
- ** @param tid The active thread ID that sent this event.
- ** @param data Event-specific data.
+ ** @param[in] pid The process ID of the debugged application.
+ ** @param[in] tid The active thread ID that sent this event.
+ ** @param[in] data Event-specific data.
  ** @return True, if we handled the event, false if not.
  ** @throws std::exception All handlers may throw any derivative of
  **     std::exception.

@@ -165,8 +165,8 @@ bool proclib::debug_event_dumper::OnUnknownEvent (
 
 /** @brief I don't want to repeat this code in every event handler...
  **
- ** @param pid The debugged process ID.
- ** @param tid The active thread ID.
+ ** @param[in] pid The debugged process ID.
+ ** @param[in] tid The active thread ID.
  **/
 void proclib::debug_event_dumper::printCommonData (
     processId_t pid, threadId_t tid)

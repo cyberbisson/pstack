@@ -110,7 +110,7 @@ bool proclib::debug_module::s_UsingAdmin = false;
  **
  ** These privileges apply to all debugging sessions, so use with care if you
  ** need one debugger to have them and another to not.
- ** @param enable If true, enable the privileges; if false, disable them.
+ ** @param[in] enable If true, enable the privileges; if false, disable them.
  ** @throws unimplemented_exception Disabling the privilege is not implemented.
  ** @throws windows_exception There was some OS error changing privileges.
  **/
@@ -177,7 +177,7 @@ void proclib::debug_module::EnableDebugPrivilege (bool enable /*=true*/)
  ** there's not an instance for the given process, then create a new one and
  ** return it.
  **
- ** @param processId The system process ID that you wish to debug,
+ ** @param[in] processId The system process ID that you wish to debug,
  ** @return A debugger object that's ready to go!
  ** @throws null_pointer_exception If the debugger list is in a bad state.
  ** @throws unimplemented_exception Only one process can be debugged at a time.
@@ -217,9 +217,9 @@ debug_module& proclib::debug_module::GetDebugger (processId_t processId)
  **
  ** If the listener has already been added, this method does nothing.
  **
- ** @param listener An object derived from the proclib::debug_event_listener
- **     class that will recieve events from the debugger.  The listener must live
- **     at least as long as it remains in the debug module's queue.
+ ** @param[in] listener An object derived from the proclib::debug_event_listener
+ **     class that will recieve events from the debugger.  The listener must
+ **     live at least as long as it remains in the debug module's queue.
  **/
 void proclib::debug_module::addListener (proclib::debug_event_listener& listener)
     throw ()
@@ -239,7 +239,8 @@ void proclib::debug_module::addListener (proclib::debug_event_listener& listener
  **
  ** The specified object must be the same instance of the object that was added.
  ** This function will not free any memory or destroy the object passed in.
- ** @param listener The object to remove.
+ **
+ ** @param[in] listener The object to remove.
  **/
 void proclib::debug_module::removeListener (
     proclib::debug_event_listener& listener)
@@ -329,9 +330,9 @@ bool proclib::debug_module::pumpAvailableEvent () throw (std::exception)
  ** message.  If any listeners through an exception, it will stop traversing the
  ** list of listeners and this function will throw that exception.
  **
- ** @param ms The timeout in milliseconds to wait for a debug event.  If this is
- **     given as "INFINITE", this function will wait forever (until it recieves
- **     an event).
+ ** @param[in] ms The timeout in milliseconds to wait for a debug event.  If
+ **     this is given as "INFINITE", this function will wait forever (until it
+ **     recieves an event).
  ** @return If an event was seen, this returns true if and only if a listener
  **     said they handled it.  In all other cases, it will return false.
  ** @throws internal_exception If one of the listeners threw an error that was
@@ -494,7 +495,7 @@ proclib::debug_module::~debug_module ()
 
 /** @brief Allocate, and construct a debugger object.
  **
- ** @param processId The debugger will examine the process given by this ID.
+ ** @param[in] processId The debugger will examine the process given by this ID.
  ** @return A newly created debug_module object.  This should be freed by calling
  **         destroy().
  ** @throws unimplemented_exception If this is not the only debugger instance.

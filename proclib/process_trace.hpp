@@ -75,7 +75,7 @@ private:
     {
     public:
         /** @brief Default constructor hangs on to the process_trace.
-         ** @param parent This parameter must <b>never</b> be NULL.  This
+         ** @param[in] parent This parameter must <b>never</b> be NULL.  This
          **     shouldn't be a problem as long as this class remains private,
          **     and is initialized with "this" during process_trace
          **     construction.

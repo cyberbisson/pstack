@@ -46,8 +46,8 @@ static PVOID WINAPI cbSymFunctionTableAccess (HANDLE hProcess, DWORD64 addr)
 /** This will call the constructor and initialize the thread_trace object.
  ** @brief Allocate memory and construct a thread_trace object.
  **
- ** @param parent   The process that owns this thread.
- ** @param threadId The systems identification for this thread.
+ ** @param[in] parent   The process that owns this thread.
+ ** @param[in] threadId The systems identification for this thread.
  ** @return A newly allocated thread_trace object.
  ** @throws windows_exception If basic construction operations fail.
  ** @throws bad_alloc If we could not allocate the memory.
@@ -82,8 +82,8 @@ const thread_trace::stackFrames_t& proclib::thread_trace::getStack ()
 /** The constructor always initializes the thread's handle.
  ** @brief Initialize a thread with it's ID and parent.
  **
- ** @param parent   The process that owns this thread.
- ** @param threadId The systems identification for this thread.
+ ** @param[in] parent   The process that owns this thread.
+ ** @param[in] threadId The systems identification for this thread.
  ** @throws windows_exception If we could net find a handle for the given
  **                           thread ID.
  **/

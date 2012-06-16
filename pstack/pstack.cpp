@@ -204,7 +204,7 @@ public:
     }
 
 
-    /** @param multi_proc Specify true if there is 1 or more processes.
+    /** @param[in] multi_proc Specify true if there is 1 or more processes.
      ** @brief Construct the entry-point wrapper class.
      **/
     explicit ptrace_entry (bool multi_proc) throw ()
@@ -245,9 +245,9 @@ private:
  ** command line.
  ** @brief The application's entry point.
  **
- ** @param argc How many arguments were passed in (assumed to be >0).
- ** @param argv The list of arguments.  For explanation on how they're used,
- **             see pstack::options.
+ ** @param[in] argc How many arguments were passed in (assumed to be >0).
+ ** @param[in] argv The list of arguments.  For explanation on how they're used,
+ **                 see pstack::options.
  ** @return For an explanation, see proclib::ptrace_entry::getReturnCode().
  **/
 int main (int argc, char *argv[])

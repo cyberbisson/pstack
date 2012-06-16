@@ -45,10 +45,10 @@ bool proclib::process_trace::proclib_debugger::OnCreateProcess (
 
 /** @brief Allocate a process object and attach it with the debugger.
  **
- ** @param processId The system process ID to examine.
- ** @param allThreads If true, this will find all threads of the running process
- **        and examine them.  If this is false, it examines only the process
- **        that is active <b>at the time of object creation</b>.
+ ** @param[in] processId The system process ID to examine.
+ ** @param[in] allThreads If true, this will find all threads of the running
+ **            process and examine them.  If this is false, it examines only
+ **            the process that is active <b>at the time of object creation</b>.
  ** @return A newly allocated process_trace object.
  ** @throws bad_alloc If memory could not be allocated for the new object.
  ** @throws windows_exception If an error was thrown while upgrading privileges
@@ -82,8 +82,8 @@ void proclib::process_trace::dump_object ()
  ** manner as a normal lookup fails.  If this succeeds, we put this symbol in
  ** the given module's symbol list for future searches.
  **
- ** @param module The running module to search (and possibly modify).
- ** @param location The memory location to match to a symbol.
+ ** @param[in] module The running module to search (and possibly modify).
+ ** @param[in] location The memory location to match to a symbol.
  ** @return A symbol name and the offset from that symbol's starting point.
  **/
 proclib::symbol_t proclib::process_trace::findSymbol (
@@ -125,7 +125,7 @@ proclib::symbol_t proclib::process_trace::findSymbol (
 
 /** @brief Looks for a symbol in all modules.
  **
- ** @param location The memory location to match to a symbol.
+ ** @param[in] location The memory location to match to a symbol.
  ** @return A symbol name and the offset from that symbol's starting point.
  **/
 proclib::symbol_t proclib::process_trace::findSymbol (
@@ -142,7 +142,7 @@ proclib::symbol_t proclib::process_trace::findSymbol (
  ** may believe that an address belongs to a module, when it's simply beyond
  ** the highest module's base address.
  **
- ** @param location A memory address that we hope to link to a module.
+ ** @param[in] location A memory address that we hope to link to a module.
  ** @return A reference to the associated module's object.
  **/
 const proclib::process_module& proclib::process_trace::findModule (
@@ -168,7 +168,8 @@ const proclib::process_module& proclib::process_trace::findModule (
 
 /** @brief Retrieve the module name at the given memory address.
  **
- ** @param location An address expected to be somewhere inside a loaded module.
+ ** @param[in] location An address expected to be somewhere inside a loaded
+ **            module.
  ** @return The name of the module or "<Unknown>".
  ** @todo Shouldn't this function at least *try* to use process_module?
  **/
@@ -215,10 +216,10 @@ const char *proclib::process_trace::getModuleName (
 /** @brief The constructor changes access rights of the caller's process, as well
  **        as constructing the object.
  **
- ** @param processId The system process ID to examine.
- ** @param allThreads If true, this will find all threads of the running process
- **        and examine them.  If this is false, it examines only the process
- **        that is active <b>at the time of object creation</b>.
+ ** @param[in] processId The system process ID to examine.
+ ** @param[in] allThreads If true, this will find all threads of the running
+ **            process and examine them.  If this is false, it examines only
+ **            the process that is active <b>at the time of object creation</b>.
  ** @see proclib::debug_module::EnableDebugPrivilege for what exceptions are
  **      thrown and why.
  **/

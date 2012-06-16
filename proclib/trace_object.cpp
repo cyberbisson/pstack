@@ -111,8 +111,8 @@ void proclib::trace_object::reuse ()
 
 /** @brief Set up the trace_object.
  **
- ** @param hObject This can be invalid during construction, but should not be
- **                when the object is used.
+ ** @param[in] hObject This can be invalid during construction, but should not
+ **                    be when the object is used.
  **/
 proclib::trace_object::trace_object (HANDLE hObject)
     throw ()

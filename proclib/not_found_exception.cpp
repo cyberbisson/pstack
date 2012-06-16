@@ -16,10 +16,10 @@ using namespace proclib;
 /** @brief This constructor initializes the object with a contextual message
  **        given by the caller.
  **
- ** @param file The source file where the exception was thrown (or NULL).
- ** @param function The offending function's name (or NULL).
- ** @param line The line number in <i>file</i> where the exception occurred.
- ** @param msg A "printf" style format to describe this exception.
+ ** @param[in] file The source file where the exception was thrown (or NULL).
+ ** @param[in] function The offending function's name (or NULL).
+ ** @param[in] line The line number in <i>file</i> where the exception occurred.
+ ** @param[in] msg A "printf" style format to describe this exception.
  **/
 proclib::not_found_exception::not_found_exception (
     const char *file,  const char *function, int line, const char *msg, ...)
@@ -38,9 +38,9 @@ proclib::not_found_exception::not_found_exception (
  ** It will not initialize the structures returned from the
  ** exception::what() method.
  **
- ** @param file The source file where the exception was thrown (or NULL).
- ** @param function The offending function's name (or NULL).
- ** @param line The line number in <i>file</i> where the exception occurred.
+ ** @param[in] file The source file where the exception was thrown (or NULL).
+ ** @param[in] function The offending function's name (or NULL).
+ ** @param[in] line The line number in <i>file</i> where the exception occurred.
  **/
 proclib::not_found_exception::not_found_exception (
     const char *file,  const char *function, int line)

@@ -75,7 +75,7 @@ proclib::process_module *proclib::process_module::Create (
 /** @brief This is a utility method to get the fully qualified path to the
  **     process' source module.
  **
- ** @param hProcess the open handle to the process we wish to examine.
+ ** @param[in] hProcess the open handle to the process we wish to examine.
  ** @return a fully qualified path to the module that contains the executable
  **     code for the loaded process module.
  **

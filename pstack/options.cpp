@@ -58,8 +58,8 @@ void pstack::options::FreeOptions () throw ()
  ** runs through the long-getopt funtion and retrieves them into internal
  ** structures.
  **
- ** @param argc Command line argument count
- ** @param argv Array of pointers to strings received from the command line.
+ ** @param[in] argc Command line argument count
+ ** @param[in] argv Array of pointers to strings received from the command line.
  ** @return If this function returns false, the caller should exit.  If it
  **         returns true, the caller should happily continue.
  ** @throws null_pointer_exception If argv was NULL.
@@ -330,9 +330,9 @@ void pstack::options::PrintVersionInfo () throw ()
 //////////////////////////////////////////////////////////////////////////////
 
 /** @brief The constructor sets up the defaults for the preferences object.
- ** @param progName The invocation name of this application.  This object must
- **                 exist throughout the lifetime of the application, as it will
- **                 not be copied into the data structure.
+ ** @param[in] progName The invocation name of this application.  This object
+ **     must exist throughout the lifetime of the application, as it will not be
+ **     copied into the data structure.
  ** @throws null_pointer_exception if progName is NULL.
  **/
 pstack::options::options (const char *progName)
@@ -418,7 +418,7 @@ void pstack::options::setShowInfo () throw ()
  ** C syntax).
  **
  ** @brief Tries to convert an argument to a numerical process ID
- ** @param arg Convert me!
+ ** @param[in] arg Convert me!
  ** @throws ui_exception If the given process ID was larger than the processId_t
  **                      datatype.
  ** @throws ui_exception If arg was simply not a number.
@@ -454,7 +454,7 @@ void pstack::options::tryPidArg (const char *arg)
  ** object.
  **
  ** @brief Set the options state based on the given argument.
- ** @param arg Chew this up, and bring it into our system.
+ ** @param[in] arg Chew this up, and bring it into our system.
  ** @throws ui_exception The user has given an argument that we don't understand.
  ** @throws bool If we want to quit without raising a real exception.
  **         CATCH THIS.
