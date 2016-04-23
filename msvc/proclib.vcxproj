@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B98AF661-640E-4E3B-B75E-D8EC0EB9300C}</ProjectGuid>
+    <RootNamespace>proclib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\$(ProjectName)-int\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\$(ProjectName)-int\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\$(ProjectName)-int\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)..\out\$(Configuration)-$(Platform)\$(ProjectName)-int\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;NTDDI_WIN7SP1=0;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName)-vc$(PlatformToolsetVersion).pdb</PrecompiledHeaderOutputFile>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)-vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;NTDDI_WIN7SP1=0;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName)-vc$(PlatformToolsetVersion).pdb</PrecompiledHeaderOutputFile>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)-vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NTDDI_WIN7SP1=0;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)-vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NTDDI_WIN7SP1=0;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsManaged>false</CompileAsManaged>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName)-vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>DbgHelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\proclib\base_debug_event_listener.hpp" />
+    <ClInclude Include="..\include\proclib\debug_engine.hpp" />
+    <ClInclude Include="..\include\proclib\process_debugger.hpp" />
+    <ClInclude Include="..\include\proclib\proclib_ns.hpp" />
+    <ClInclude Include="..\include\psystem\dbghelp_symbol_engine.hpp" />
+    <ClInclude Include="..\include\psystem\dll\debug_help_dll.hpp" />
+    <ClInclude Include="..\include\psystem\dll_export_iterator.hpp" />
+    <ClInclude Include="..\include\psystem\dll_export_view.hpp" />
+    <ClInclude Include="..\include\psystem\exception\base_exception.hpp" />
+    <ClInclude Include="..\include\psystem\exception\exception_ns.hpp" />
+    <ClInclude Include="..\include\psystem\exception\system_exception.hpp" />
+    <ClInclude Include="..\include\psystem\exception\ui_exception.hpp" />
+    <ClInclude Include="..\include\psystem\framework\default_close_handle.hpp" />
+    <ClInclude Include="..\include\psystem\framework\iomanip.hpp" />
+    <ClInclude Include="..\include\psystem\framework\managed_handle_proxy.hpp" />
+    <ClInclude Include="..\include\psystem\framework\memory.hpp" />
+    <ClInclude Include="..\include\psystem\framework\not_assignable.hpp" />
+    <ClInclude Include="..\include\psystem\framework\not_copyable.hpp" />
+    <ClInclude Include="..\include\psystem\framework\platform.hpp" />
+    <ClInclude Include="..\include\psystem\framework\shared_handle.hpp" />
+    <ClInclude Include="..\include\psystem\framework\shared_library.hpp" />
+    <ClInclude Include="..\include\psystem\framework\stack_allocated.hpp" />
+    <ClInclude Include="..\include\psystem\framework\type_traits.hpp" />
+    <ClInclude Include="..\include\psystem\framework\unique_handle.hpp" />
+    <ClInclude Include="..\include\psystem\image_symbol_iterator.hpp" />
+    <ClInclude Include="..\include\psystem\module_address_map.hpp" />
+    <ClInclude Include="..\include\psystem\module_info.hpp" />
+    <ClInclude Include="..\include\psystem\process_info.hpp" />
+    <ClInclude Include="..\include\psystem\psystem_ns.hpp" />
+    <ClInclude Include="..\include\psystem\stack_frame.hpp" />
+    <ClInclude Include="..\include\psystem\symbol.hpp" />
+    <ClInclude Include="..\include\psystem\symbol_file_module.hpp" />
+    <ClInclude Include="..\include\psystem\symbol_view.hpp" />
+    <ClInclude Include="..\include\psystem\thread_info.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\proclib\base_debug_event_listener.cpp" />
+    <ClCompile Include="..\src\proclib\debug_engine.cpp" />
+    <ClCompile Include="..\src\proclib\process_debugger.cpp" />
+    <ClCompile Include="..\src\psystem\dbghelp_symbol_engine.cpp" />
+    <ClCompile Include="..\src\psystem\dll\debug_help_dll.cpp" />
+    <ClCompile Include="..\src\psystem\dll_export_iterator.cpp" />
+    <ClCompile Include="..\src\psystem\dll_export_view.cpp" />
+    <ClCompile Include="..\src\psystem\exception\base_exception.cpp" />
+    <ClCompile Include="..\src\psystem\exception\system_exception.cpp" />
+    <ClCompile Include="..\src\psystem\framework\shared_library.cpp" />
+    <ClCompile Include="..\src\psystem\image_symbol_iterator.cpp" />
+    <ClCompile Include="..\src\psystem\module_info.cpp" />
+    <ClCompile Include="..\src\psystem\process_info.cpp" />
+    <ClCompile Include="..\src\psystem\psystem_ns.cpp" />
+    <ClCompile Include="..\src\psystem\stack_frame.cpp" />
+    <ClCompile Include="..\src\psystem\symbol.cpp" />
+    <ClCompile Include="..\src\psystem\symbol_file_module.cpp" />
+    <ClCompile Include="..\src\psystem\symbol_view.cpp" />
+    <ClCompile Include="..\src\psystem\thread_info.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,269 @@
+// ===-- src/pstack/test.tmp ------------------------------ -*- C++ -*- --=== //
+class test_class
+{
+public:
+    static int s_alloc;
+    static int s_free;
+
+    test_class(bool throw_something = false)
+    {
+        std::cerr << "CTOR " << ptr(this) << " test_class\n";
+        if (throw_something)
+        {
+            std::cerr << "    test_class throwing...\n";
+            throw false;
+        }
+        ++s_alloc;
+    }
+
+    test_class(test_class const&)
+    {
+        std::cerr << "COPY " << ptr(this) << " test_class\n";
+        ++s_alloc;
+    }
+
+    test_class(test_class&&)
+    {
+        std::cerr << "MOVE " << ptr(this) << " test_class\n";
+        ++s_alloc;
+    }
+
+    ~test_class()
+    {
+        std::cerr << "DTOR " << ptr(this) << " test_class\n";
+        ++s_free;
+    }
+
+    test_class& operator=(test_class const&)
+    {
+        std::cerr << "COPY=" << ptr(this) << " test_class\n";
+        return *this;
+    }
+
+    test_class& operator=(test_class&&)
+    {
+        std::cerr << "MOVE=" << ptr(this) << " test_class\n";
+        return *this;
+    }
+};
+
+typedef test_class *test_handle;
+static constexpr test_handle invalid_handle = nullptr;
+
+void close_test_handle(test_handle th)
+{
+    delete th;
+}
+test_handle create_test_handle()
+{
+    return new test_class;
+}
+
+class test_deleter
+{
+public:
+    static int s_alloc;
+    static int s_free;
+
+    test_deleter()
+    {
+        std::cerr << "CTOR " << ptr(this) << " test_deleter\n";
+        ++s_alloc;
+    }
+
+    test_deleter(test_deleter const&)
+    {
+        std::cerr << "COPY " << ptr(this) << " test_deleter\n";
+        ++s_alloc;
+    }
+
+    test_deleter(test_deleter&&)
+    {
+        std::cerr << "MOVE " << ptr(this) << " test_deleter\n";
+        ++s_alloc;
+    }
+
+    ~test_deleter()
+    {
+        std::cerr << "DTOR " << ptr(this) << " test_deleter\n";
+        ++s_free;
+    }
+
+    test_deleter& operator=(test_deleter const&)
+    {
+        std::cerr << "COPY=" << ptr(this) << " test_deleter\n";
+        return *this;
+    }
+
+    test_deleter& operator=(test_deleter&&)
+    {
+        std::cerr << "MOVE=" << ptr(this) << " test_deleter\n";
+        return *this;
+    }
+
+    void operator() (test_handle th)
+    {
+        close_test_handle(th);
+    }
+};
+
+int test_deleter::s_alloc = 0;
+int test_deleter::s_free  = 0;
+int test_class::s_alloc = 0;
+int test_class::s_free = 0;
+
+#include <psystem/framework/shared_handle.hpp>
+#include <psystem/framework/unique_handle.hpp>
+#include <memory>
+#include <functional>
+
+int main(int /*argc*/, char const * /*argv*/[])
+{
+    using psystem::unique_handle;
+    using unique_test_handle =
+        unique_handle<test_handle, test_deleter, invalid_handle>;
+
+    using psystem::shared_handle;
+    using shared_test_handle =
+        shared_handle<test_handle, invalid_handle>;
+
+    std::cerr << "main() START\n\n";
+
+    try
+    {
+        test_deleter lvalue;
+
+        std::cerr << "> Creating a test handle with an lvalue deleter\n";
+        {
+            unique_test_handle x1(create_test_handle(), lvalue);
+        }
+        ASSERT(test_deleter::s_alloc == 2);
+        ASSERT(test_deleter::s_free  == 1);
+        ASSERT(test_class::s_alloc   == 1);
+        ASSERT(test_class::s_free    == 1);
+        std::cerr << "< DONE\n\n";
+
+        std::cerr << "> Creating a test handle with an rvalue deleter\n";
+        {
+            unique_test_handle x2(create_test_handle(), test_deleter());
+        }
+        ASSERT(test_deleter::s_alloc == 4);
+        ASSERT(test_deleter::s_free  == 3);
+        ASSERT(test_class::s_alloc   == 2);
+        ASSERT(test_class::s_free    == 2);
+        std::cerr << "< DONE\n\n";
+
+        std::cerr << "> Creating a test handle with no handle data\n";
+        {
+            unique_test_handle x3;
+        }
+        ASSERT(test_deleter::s_alloc == 5);
+        ASSERT(test_deleter::s_free  == 4);
+        ASSERT(test_class::s_alloc   == 2);
+        ASSERT(test_class::s_free    == 2);
+        std::cerr << "< DONE\n\n";
+
+        std::cerr << "> Creating two test handles, moving int 3rd\n";
+        {
+            unique_test_handle x4;
+            unique_test_handle x5(create_test_handle());
+
+            test_handle const th = x5.get();
+
+            unique_test_handle x6(std::move(x5));
+            ASSERT(x5.get() == invalid_handle);
+            ASSERT(x6.get() == th);
+        }
+        ASSERT(test_deleter::s_alloc == 8);
+        ASSERT(test_deleter::s_free  == 7);
+        ASSERT(test_class::s_alloc   == 3);
+        ASSERT(test_class::s_free    == 3);
+        std::cerr << "< DONE\n\n";
+
+        std::cerr << "> Creating two test handles, swapping\n";
+        {
+            unique_test_handle x7;
+            unique_test_handle x8(create_test_handle());
+
+            test_handle const th = x8.get();
+
+            std::swap(x7, x8);
+            ASSERT(x7.get() == th);
+            ASSERT(x8.get() == invalid_handle);
+        }
+        ASSERT(test_deleter::s_alloc == 11);
+        ASSERT(test_deleter::s_free  == 10);
+        ASSERT(test_class::s_alloc   == 4);
+        ASSERT(test_class::s_free    == 4);
+        std::cerr << "< DONE\n\n";
+
+        std::cerr << "> Creating two test handles, moving one onto the other\n";
+        {
+            unique_test_handle x9(create_test_handle());
+            unique_test_handle x10(create_test_handle());
+
+            test_handle const th = x10.get();
+
+            x9 = std::move(x10);
+            ASSERT(test_class::s_alloc == 6);
+            ASSERT(test_class::s_free  == 5);
+
+            ASSERT(x9.get()  == th);
+            ASSERT(x10.get() == invalid_handle);
+        }
+        ASSERT(test_deleter::s_alloc == 13);
+        ASSERT(test_deleter::s_free  == 12);
+        ASSERT(test_class::s_alloc   == 6);
+        ASSERT(test_class::s_free    == 6);
+        std::cerr << "< DONE\n\n";
+
+        unique_handle<test_handle, psystem::default_close_handle<test_handle>, invalid_handle> xxx;
+        unique_test_handle yyy;
+        std::cerr << "sizeof(unique_handle<test_handle>) = " << sizeof xxx << "\n";
+        std::cerr << "sizeof(unique_test_handle) = " << sizeof yyy << "\n\n";
+
+        ASSERT(sizeof(xxx) == sizeof(void*));
+        ASSERT(sizeof(xxx) < sizeof(yyy));
+    }
+    catch (...)
+    {
+        std::cerr << "Caught something...\n\n";
+    }
+
+    try
+    {
+        test_deleter::s_alloc = 0;
+        test_deleter::s_free  = 0;
+        test_class::s_alloc   = 0;
+        test_class::s_free    = 0;
+
+        std::cerr << "> Assigning a unique_handle to shared_handle\n";
+        {
+            unique_test_handle x1(create_test_handle());
+            shared_test_handle s1(std::move(x1));
+        }
+        ASSERT(test_deleter::s_alloc == 2);
+        ASSERT(test_deleter::s_free  == 2);
+        ASSERT(test_class::s_alloc   == 1);
+        ASSERT(test_class::s_free    == 1);
+
+        std::cerr << "> Assigning a basic unique_handle to shared_handle\n";
+        {
+            unique_handle<test_handle, psystem::default_close_handle<test_handle>, invalid_handle> x2;
+            shared_test_handle s1(std::move(x2));
+        }
+        ASSERT(test_deleter::s_alloc == 2);
+        ASSERT(test_deleter::s_free  == 2);
+        ASSERT(test_class::s_alloc   == 1);
+        ASSERT(test_class::s_free    == 1);
+
+        std::cerr << "< DONE\n\n";
+    }
+    catch (...)
+    {
+        std::cerr << "Caught something...\n";
+    }
+
+    std::cerr << "main() COMPLETE\n";
+    return 0;
+}

@@ -1,0 +1,71 @@
+// ===-- src/addr2ln/addr2ln.rc ----------------------------- -*- C -*- --=== //
+// Copyright (c) 2016 Matt Bisson.  All rights reserved.
+
+/**
+ * @file
+ * @brief String resources and version information for the Addr2Ln application.
+ *
+ * @author  Matt Bisson
+ * @date    7 July, 2008 -- 14 April, 2016
+ * @since   Addr2ln 0.1
+ * @version Addr2ln 0.1
+ */
+
+#include <addr2ln/addr2ln_ns.hpp>
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
+
+////////////////////////////////////////////////////////////////////////////////
+/// @name Version information
+////////////////////////////////////////////////////////////////////////////////
+
+VS_VERSION_INFO VERSIONINFO
+    FILEVERSION    ADDR2LN_MAJOR_VERSION,ADDR2LN_MINOR_VERSION,ADDR2LN_PATCH_LEVEL,ADDR2LN_BUILD_NUMBER
+    PRODUCTVERSION ADDR2LN_MAJOR_VERSION,ADDR2LN_MINOR_VERSION,ADDR2LN_PATCH_LEVEL,ADDR2LN_BUILD_NUMBER
+    FILEFLAGSMASK  VS_FFI_FILEFLAGSMASK
+    FILEFLAGS      FILE_FLAGS
+    FILEOS         VOS_NT
+    FILETYPE       VFT_APP
+    FILESUBTYPE    VFT2_UNKNOWN
+    {
+        BLOCK "StringFileInfo"
+        {
+            BLOCK "040904b0"
+            {
+                VALUE "OriginalFilename", TARGET_FILE_NAME
+                VALUE "ProductName",      "Addr2Ln"
+                VALUE "InternalName",     "Addr2Ln"
+                VALUE "FileDescription",  ADDR2LN_APP_NAME
+                VALUE "ProductVersion",   MAKE_PRODUCT_VERSION_ID(ADDR2LN_MAJOR_VERSION, ADDR2LN_MINOR_VERSION, ADDR2LN_PATCH_LEVEL)
+                VALUE "FileVersion",      MAKE_FILE_VERSION_ID(ADDR2LN_MAJOR_VERSION, ADDR2LN_MINOR_VERSION, ADDR2LN_PATCH_LEVEL, ADDR2LN_BUILD_NUMBER)
+                VALUE "CompanyName",      "Bissonic Software"
+                VALUE "LegalCopyright",   "Copyright © 2015 Matt Bisson"
+                VALUE "LegalTrademarks",  "N/A"
+                VALUE "License",          "University of Illinois / NCSA Open Source License"
+                VALUE "Comments",         "No comment..."
+#ifdef _PRIVATE_BUILD
+                VALUE "PrivateBuild",     "For me only"
+                VALUE "SpecialBuild",     "'Special' build."
+#endif
+            }
+        }
+        BLOCK "VarFileInfo"
+        {
+            VALUE "Translation", 0x409, 1200
+        }
+    }
+
+////////////////////////////////////////////////////////////////////////////////
+/// @name Strings
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @todo Internationalization would be triggered from this @c USING_I18N_STRINGS
+ * macro.
+ */
+#ifdef USING_I18N_STRINGS
+STRINGTABLE
+{
+    1234 "tempstring"
+}
+#endif

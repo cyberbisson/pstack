@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\proclib">
+      <UniqueIdentifier>{df08e536-c229-4fc1-a389-61ad714529ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\psystem">
+      <UniqueIdentifier>{605eb63e-641c-415a-ba81-8a2d5bad589e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\proclib">
+      <UniqueIdentifier>{cfc16b3b-b2c8-4509-9a65-bab0d199cb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\psystem">
+      <UniqueIdentifier>{85469936-6155-4e4f-9c97-0c7722649057}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\psystem\dbghelp_symbol_engine.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\dll_export_iterator.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\dll_export_view.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\image_symbol_iterator.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\module_address_map.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\module_info.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\process_info.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\psystem_ns.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\stack_frame.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\symbol.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\symbol_file_module.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\symbol_view.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\thread_info.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\dll\debug_help_dll.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\exception\base_exception.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\exception\exception_ns.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\exception\system_exception.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\exception\ui_exception.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\default_close_handle.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\iomanip.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\managed_handle_proxy.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\memory.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\not_assignable.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\not_copyable.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\platform.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\shared_handle.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\shared_library.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\stack_allocated.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\type_traits.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\psystem\framework\unique_handle.hpp">
+      <Filter>Header Files\psystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\proclib\base_debug_event_listener.hpp">
+      <Filter>Header Files\proclib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\proclib\debug_engine.hpp">
+      <Filter>Header Files\proclib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\proclib\process_debugger.hpp">
+      <Filter>Header Files\proclib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\proclib\proclib_ns.hpp">
+      <Filter>Header Files\proclib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\psystem\dbghelp_symbol_engine.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\dll_export_iterator.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\dll_export_view.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\image_symbol_iterator.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\module_info.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\process_info.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\psystem_ns.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\stack_frame.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\symbol.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\symbol_file_module.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\symbol_view.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\thread_info.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\dll\debug_help_dll.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\exception\base_exception.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\exception\system_exception.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\psystem\framework\shared_library.cpp">
+      <Filter>Source Files\psystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\proclib\base_debug_event_listener.cpp">
+      <Filter>Source Files\proclib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\proclib\debug_engine.cpp">
+      <Filter>Source Files\proclib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\proclib\process_debugger.cpp">
+      <Filter>Source Files\proclib</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

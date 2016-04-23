@@ -1,0 +1,25 @@
+// ===-- windows_shim/codecvt ----------------------------- -*- C++ -*- --=== //
+
+#ifndef WINDOWS_SHIM_CODECVT
+#define WINDOWS_SHIM_CODECVT
+
+namespace std {
+
+template <typename Cvt, typename T>
+struct string_convert
+{
+    wchar_t const *to_bytes(T const *) { return nullptr; }
+};
+
+template <typename Cvt, typename T>
+struct wstring_convert
+{
+    char const *to_bytes(T const *) { return nullptr; }
+};
+
+template<typename T>
+struct codecvt_utf8_utf16 { };
+
+} // namespace std
+
+#endif // WINDOWS_SHIM_CODECVT
