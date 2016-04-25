@@ -1,3 +1,5 @@
+.emacs.desktop
+.emacs.desktop.lock
 out
 msvc/pstack.v12.suo
 msvc/pstack.opensdf
