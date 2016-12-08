@@ -34,7 +34,7 @@
  *
  * @param err The Windows API error code.
  * @param msg A brief description of the error (other than the message that will
- *            be formated automatically.
+ *            be formated automatically).
  *
  * @relates psystem::exception::system_exception
  */

@@ -112,8 +112,8 @@ protected:
     { }
 
 public:
-    /// @brief Destroy the exception (supports run-time polymorphism).
-    virtual ~base_exception() noexcept { };
+    /// @brief Destroy the exception.
+    virtual ~base_exception() noexcept override { };
 
     ////////////////////////////////////////////////////////////////////////////
     /// @name Virtual Method Overrides
