@@ -31,6 +31,50 @@
 ///        compiler differences.
 namespace std {
 
+/// @brief Internal implementation details.
+namespace detail {
+
+/**
+ * @brief A metafunction that uses SFINAE to select the correct implementation
+ *        of std::make_unique().
+ *
+ * This metafunction will be the return type for std::make_unique().  To
+ * implement the version that operates on object pointers, ask for the type @c
+ * single_object_type.  For input types that are array types, this type name
+ * will not exist, and the function will not be available.  For un-bounded array
+ * types, @c array_type refers to the appropriate unique_ptr variant, and @c
+ * element_type refers to the element type inside the array.  Bounded arrays
+ * have no type names, and all overloads of std::make_unique() will be ignored.
+ *
+ * @tparam T The type passed to std::make_unique.
+ */
+template<typename T>
+struct unique_ptr_ret
+{
+    /// @brief The unique_ptr type that pertains to a single object.
+    using single_object_type = std::unique_ptr<T>;
+};
+
+/// @brief Deals with unbounded array types.
+template<typename T>
+struct unique_ptr_ret<T[]>
+{
+    /// @brief The array-specific unique_ptr type.
+    using array_type = std::unique_ptr<T[]>;
+
+    // @brief The element type of the array.
+    using element_type = T;
+};
+
+/// @brief Deals with bounded array types.
+template<typename T, size_t Bounds>
+struct unique_ptr_ret<T[Bounds]>
+{
+    // Does not evaluate to anything!
+};
+
+} // namespace detail
+
 /**
  * @brief Construct a new instance of @p T, assigning it to a
  *        @c std::unique_ptr.
@@ -65,14 +109,9 @@ namespace std {
  *
  * @throws ... This function may throw any exception thown by the constructor or
  *             the @c new operator that it executes.
- *
- * @note The C++14 standard defines two more types that we're not defining
- *       (because they are not used so far.  That is a @c make_unique for
- *       array-based @p T parameters, and a disabled @c make_unique for constant
- *       sized arrays.
  */
 template<typename T, typename... Types>
-unique_ptr<T>
+typename detail::unique_ptr_ret<T>::single_object_type
 make_unique(Types&&... args)
 {
     return unique_ptr<T>(new T(forward<Types>(args)...));
@@ -95,10 +134,11 @@ make_unique(Types&&... args)
  *             the @c new operator that it executes.
  */
 template<typename T>
-unique_ptr<T[]>
-make_unique<T[]>(size_t const array_sz)
+typename detail::unique_ptr_ret<T>::array_type
+make_unique(size_t const array_sz)
 {
-    return unique_ptr<T[]>(new T[array_sz]);
+    return typename detail::unique_ptr_ret<T>::array_type(
+        new typename detail::unique_ptr_ret<T>::element_type[array_sz]);
 }
 
 } // namespace std
