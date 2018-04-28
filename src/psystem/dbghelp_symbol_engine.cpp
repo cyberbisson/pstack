@@ -31,7 +31,7 @@ namespace psystem {
 // Construction / Destruction
 ////////////////////////////////////////////////////////////////////////////////
 
-dbghelp_symbol_engine::dbghelp_symbol_engine(HANDLE h_process)
+dbghelp_symbol_engine::dbghelp_symbol_engine(HANDLE const h_process)
     : m_process_handle(h_process)
 {
     ASSERT(m_process_handle);
@@ -85,7 +85,7 @@ catch (psystem::exception::system_exception const& sex)
 ////////////////////////////////////////////////////////////////////////////////
 
 std::unique_ptr<symbol>
-dbghelp_symbol_engine::find_symbol(address_t address)
+dbghelp_symbol_engine::find_symbol(address_t const address)
 {
     /// @todo Probably don't want to do this on the stack.  In fact, since this
     ///       is single-threaded, we might just allocate a static buffer?

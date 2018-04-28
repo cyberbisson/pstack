@@ -147,7 +147,7 @@ static std::unique_ptr<psystem::symbol> find_symbol(
 /*static*/ std::unique_ptr<psystem::symbol>
 check_debug_symbols(
     psystem::symbol_view const *const sym_view,
-    psystem::address_t const *module_base,
+    psystem::address_t const *const module_base,
     psystem::address_t const address)
 {
     if (!sym_view) { return nullptr; }
@@ -217,7 +217,7 @@ check_debug_symbols(
 /*static*/ std::unique_ptr<psystem::symbol>
 check_dll_exports(
     psystem::dll_export_view const *const exp_view,
-    psystem::address_t const *module_base,
+    psystem::address_t const *const module_base,
     psystem::address_t const address)
 {
     if (!exp_view) { return nullptr; }
@@ -304,7 +304,8 @@ dump_symbols(std::string const& file_name)
             }
             else
             {
-                std::cout << " - " << sym_view->m_string_start + sym.N.Name.Long;
+                std::cout << " - "
+                          << sym_view->m_string_start + sym.N.Name.Long;
             }
 
             std::cout <<'\n';
@@ -332,7 +333,7 @@ dump_symbols(std::string const& file_name)
 /*static*/ std::unique_ptr<psystem::symbol>
 find_symbol(
     std::string const& file_name,
-    psystem::address_t const *module_base,
+    psystem::address_t const *const module_base,
     psystem::address_t const address)
 {
 #ifdef DEBUG

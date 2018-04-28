@@ -33,7 +33,7 @@ namespace proclib {
 // Construction / Destruction
 ////////////////////////////////////////////////////////////////////////////////
 
-debug_engine::debug_engine(bool kill_on_exit /*=false*/) noexcept
+debug_engine::debug_engine(bool const kill_on_exit /*=false*/) noexcept
     : m_kill_on_exit(kill_on_exit)
 {
 

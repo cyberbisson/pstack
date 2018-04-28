@@ -408,7 +408,7 @@ pstack_options::dump_arguments(pstack_options::options_data const& d) noexcept
 }
 
 void
-pstack_options::try_pid(char const *arg)
+pstack_options::try_pid(char const *const arg)
 {
     ASSERT(arg);
 

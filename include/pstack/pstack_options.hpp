@@ -155,7 +155,7 @@ private:
      *
      * @param[in] prog_name The name of the application from the command-line.
      */
-    static void print_usage(const char *const prog_name) noexcept;
+    static void print_usage(const char *prog_name) noexcept;
 
     ////////////////////////////////////////////////////////////////////////////
     /// @name Construction / Destruction

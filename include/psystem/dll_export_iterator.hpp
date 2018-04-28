@@ -76,8 +76,8 @@ public:
      */
     dll_export_iterator(
         uint8_t const *base_address,
-        integral_address_t const va_offset,
-        uint16_t const index,
+        integral_address_t va_offset,
+        uint16_t index,
         uint32_t const *export_rva,
         uint16_t const *idx_with_name,
         uint32_t const *export_name_rva) noexcept;

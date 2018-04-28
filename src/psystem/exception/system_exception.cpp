@@ -49,7 +49,7 @@ system_exception::error_code() const noexcept
 ////////////////////////////////////////////////////////////////////////////////
 
 /*static*/ std::string
-system_exception::get_windows_error(DWORD error_code) noexcept
+system_exception::get_windows_error(DWORD const error_code) noexcept
 {
     std::string ret;
 

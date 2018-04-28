@@ -78,6 +78,29 @@ make_unique(Types&&... args)
     return unique_ptr<T>(new T(forward<Types>(args)...));
 }
 
+/**
+ * @brief Construct a dynamically allocated array of @p T, assigning it to a
+ *        @c std::unique_ptr.
+ *
+ * @tparam T The type of elements in the array contained in the
+ *           @c std::unique_ptr.
+ *
+ * @param[in] array_sz
+ *     The number of elements in the newly constructed array.
+ * @return
+ *     A new instance of @c std::unique_ptr<T[]> with a dynamically allocated
+ *     array of @p T.
+ *
+ * @throws ... This function may throw any exception thown by the constructor or
+ *             the @c new operator that it executes.
+ */
+template<typename T>
+unique_ptr<T[]>
+make_unique<T[]>(size_t const array_sz)
+{
+    return unique_ptr<T[]>(new T[array_sz]);
+}
+
 } // namespace std
 
 #   endif // __cplusplus <= 201103L

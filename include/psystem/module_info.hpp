@@ -59,7 +59,7 @@ public:
      * @param[in] info
      *     The full set of information about the module.
      */
-    explicit module_info(
+    module_info(
         psystem::shared_handle<> const& file_handle,
         CREATE_PROCESS_DEBUG_INFO const& info) noexcept;
 
@@ -71,7 +71,7 @@ public:
      * @param[in] info
      *     The full set of information about the module.
      */
-    explicit module_info(
+    module_info(
         psystem::shared_handle<> const& file_handle,
         LOAD_DLL_DEBUG_INFO const& info) noexcept;
 

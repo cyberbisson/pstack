@@ -26,9 +26,9 @@ namespace psystem {
 ////////////////////////////////////////////////////////////////////////////////
 
 symbol_view::symbol_view(
-    psystem::address_t const  symbol_start,
-    char const               *string_start,
-    psystem::address_t const  module_base) noexcept
+    psystem::address_t const symbol_start,
+    char const *const        string_start,
+    psystem::address_t const module_base) noexcept
     : m_symbol_start(symbol_start),
       m_string_start(string_start),
       m_module_base(module_base)

@@ -26,14 +26,14 @@ namespace psystem {
 ////////////////////////////////////////////////////////////////////////////////
 
 dll_export_view::dll_export_view(
-    uint8_t const *base_address,
-    uint8_t const *load_address,
+    uint8_t const *const base_address,
+    uint8_t const *const load_address,
     integral_address_t const va_offset,
-    uint16_t const *idx_with_name,
-    uint32_t const *export_rva,
-    uint32_t const *export_name_rva,
-    uint32_t number_of_functions,
-    uint32_t number_of_names) noexcept
+    uint16_t const *const idx_with_name,
+    uint32_t const *const export_rva,
+    uint32_t const *const export_name_rva,
+    uint32_t const number_of_functions,
+    uint32_t const number_of_names) noexcept
     : m_base_address(base_address),
       m_load_address(load_address),
       m_va_offset(va_offset),

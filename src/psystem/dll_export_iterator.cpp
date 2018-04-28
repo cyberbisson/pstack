@@ -24,12 +24,12 @@ namespace psystem {
 ////////////////////////////////////////////////////////////////////////////////
 
 dll_export_iterator::dll_export_iterator(
-    uint8_t const *base_address,
+    uint8_t const *const base_address,
     integral_address_t const va_offset,
     uint16_t const index,
-    uint32_t const *export_rva,
-    uint16_t const *idx_with_name,
-    uint32_t const *export_name_rva) noexcept
+    uint32_t const *const export_rva,
+    uint16_t const *const idx_with_name,
+    uint32_t const *const export_name_rva) noexcept
     : m_base_address(base_address),
       m_va_offset(va_offset),
       m_idx_with_name(idx_with_name),

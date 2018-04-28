@@ -38,7 +38,7 @@
  * @todo Move somewhere more global.
  */
 static psystem::tstring
-utf16_to_tchar(wchar_t const *data)
+utf16_to_tchar(wchar_t const *const data)
 {
     ASSERT(data);
 
@@ -71,7 +71,7 @@ utf16_to_tchar(wchar_t const *data)
  * @todo Move somewhere more global.
  */
 static psystem::tstring
-utf8_to_tchar(char const *data)
+utf8_to_tchar(char const *const data)
 {
     ASSERT(data);
 
@@ -136,7 +136,7 @@ process_info::add_thread(std::unique_ptr<thread_info> thread) noexcept
 }
 
 void
-process_info::remove_thread(thread_id_t tid) noexcept
+process_info::remove_thread(thread_id_t const tid) noexcept
 {
     m_threads.erase(tid);
 }

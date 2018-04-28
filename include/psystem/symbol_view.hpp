@@ -55,10 +55,10 @@ public:
      * @param[in] module_base
      *     Offset from which all function / symbol addresses will be located.
      */
-    explicit symbol_view(
-        psystem::address_t const  symbol_start,
-        char const               *string_start,
-        psystem::address_t const  module_base) noexcept;
+    symbol_view(
+        psystem::address_t  symbol_start,
+        char const         *string_start,
+        psystem::address_t  module_base) noexcept;
 
     ////////////////////////////////////////////////////////////////////////////
     /// @name Public Interface

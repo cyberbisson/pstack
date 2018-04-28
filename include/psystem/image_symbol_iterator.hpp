@@ -64,7 +64,7 @@ public:
      *    structures.  The constructor has no way to validate the real type of
      *    the data passed to it, so take care.
      */
-    explicit image_symbol_iterator(psystem::address_t const in_ptr) noexcept;
+    explicit image_symbol_iterator(psystem::address_t in_ptr) noexcept;
 
     /**
      * @brief Copy another iterator's state into this one.
@@ -204,7 +204,7 @@ public:
      * @param[in] count The offset from this current iterator's position.
      * @return A const reference to the desired @c IMAGE_SYMBOL.
      */
-    reference operator[](size_t const count) const noexcept;
+    reference operator[](size_t count) const noexcept;
 
     ////////////////////////////////////////
     // Increment
@@ -235,7 +235,7 @@ public:
      * @param[in] count The number of positions to advance the iterator.
      * @return A reference to the current iterator.
      */
-    image_symbol_iterator& operator+=(size_t const count) noexcept;
+    image_symbol_iterator& operator+=(size_t count) noexcept;
 
     ////////////////////////////////////////
     // Decrement
@@ -266,7 +266,7 @@ public:
      * @param[in] count The number of positions to decrease the iterator.
      * @return A reference to the current iterator.
      */
-    image_symbol_iterator& operator-=(size_t const count) noexcept;
+    image_symbol_iterator& operator-=(size_t count) noexcept;
 
     /**
      * @brief Create a new iterator placed prior to this instance in the
@@ -276,7 +276,7 @@ public:
      *                  iterator relative to this one.
      * @return A new iterator at the desired position.
      */
-    image_symbol_iterator operator-(size_t const count) const noexcept;
+    image_symbol_iterator operator-(size_t count) const noexcept;
 
     /**
      * @brief Determine the distance between two iterators.
@@ -310,7 +310,7 @@ private:
  * @return A new iterator at the desired position.
  */
 image_symbol_iterator operator+(
-    image_symbol_iterator const& it, size_t const count) noexcept;
+    image_symbol_iterator const& it, size_t count) noexcept;
 
 /**
  * @brief Create a new iterator placed after @p it in the container (using "n +
@@ -322,7 +322,7 @@ image_symbol_iterator operator+(
  * @return A new iterator at the desired position.
  */
 image_symbol_iterator operator+(
-    size_t const count, image_symbol_iterator const& it) noexcept;
+    size_t count, image_symbol_iterator const& it) noexcept;
 
 } // namespace psystem
 

@@ -74,7 +74,7 @@ base_exception::source_file() const noexcept
 ////////////////////////////////////////////////////////////////////////////////
 
 /*static*/ std::string
-base_exception::format_message(char const *msg, ...) noexcept
+base_exception::format_message(char const *const msg, ...) noexcept
 {
     ASSERT(msg);
 
@@ -112,7 +112,7 @@ base_exception::format_message(char const *msg, ...) noexcept
     size_t const size = vsnprintf(nullptr, 0, msg, args) + 1;
     va_end(args);
 
-    std::unique_ptr<char[]> buf(new char[size]);
+    auto buf = std::make_unique<char[]>(size);
 
     if (buf)
     {

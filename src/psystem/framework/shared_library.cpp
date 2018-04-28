@@ -171,7 +171,7 @@ shared_library::get_version() const
             m_library_name.c_str());
     }
 
-    std::unique_ptr<uint8_t[]> version_info_buf(new uint8_t[version_info_sz]);
+    auto version_info_buf = std::make_unique<uint8_t[]>(version_info_sz);
 
     if (!::GetFileVersionInfo(
             m_library_name.c_str(),
@@ -255,7 +255,7 @@ shared_library::unload() noexcept
 ////////////////////////////////////////////////////////////////////////////////
 
 FARPROC
-shared_library::get_function(char const *export_name) const
+shared_library::get_function(char const *const export_name) const
 {
     ASSERT(export_name);
     ASSERT(is_loaded());
