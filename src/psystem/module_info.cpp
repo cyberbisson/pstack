@@ -104,7 +104,7 @@ module_info::init_file_name(HANDLE file_handle, std::string *const out) noexcept
     if ((!out) || (!out->empty())) return;
 
     // Hate the ugly \\?\ at file start, so we'll remove it later
-    std::unique_ptr<TCHAR[]> fileBuffer;
+    std::unique_ptr<TCHAR[]> file_buffer;
 
     DWORD const flags = FILE_NAME_OPENED | VOLUME_NAME_DOS;
 
@@ -114,23 +114,23 @@ module_info::init_file_name(HANDLE file_handle, std::string *const out) noexcept
 
     if (0 != required_file_buf_size)
     {
-        fileBuffer.reset(new TCHAR[required_file_buf_size]);
-        fileBuffer[0] = 0;
+        file_buffer = std::make_unique<TCHAR[]>(required_file_buf_size);
+        file_buffer[0] = 0;
 
         if (0 == GetFinalPathNameByHandle(
-                file_handle, fileBuffer.get(), required_file_buf_size, flags))
+                file_handle, file_buffer.get(), required_file_buf_size, flags))
         {
             // Some error occurred, and I really give up...
-            fileBuffer.reset();
+            file_buffer.reset();
         }
     }
 
     *out = ((0 == strncmp(
                  EXTENDED_PATH_PREFIX,
-                 fileBuffer.get(),
+                 file_buffer.get(),
                  EXTENDED_PATH_PREFIX_SZ - 1))
-            ? fileBuffer.get() + EXTENDED_PATH_PREFIX_SZ - 1
-            : fileBuffer.get());
+            ? file_buffer.get() + EXTENDED_PATH_PREFIX_SZ - 1
+            : file_buffer.get());
 }
 
 /*static*/ void

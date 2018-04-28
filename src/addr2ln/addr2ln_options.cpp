@@ -111,12 +111,12 @@ addr2ln::addr2ln_options *g_options = nullptr;
  *       pointer, but whatever size integer @c strtoul returns.
  */
 static psystem::address_t
-fetch_address(char const *text)
+fetch_address(char const *const text)
 {
     ASSERT(text);
 
     char *end;
-    psystem::address_t addr = strtoul(text, &end, 0x10);
+    psystem::address_t const addr = strtoul(text, &end, 0x10);
 
     if (!end || '\0' != *end || text == end)
     {
@@ -275,8 +275,8 @@ addr2ln_options::print_usage(const char *const prog_name) noexcept
 // Construction / Destruction
 ////////////////////////////////////////////////////////////////////////////////
 
-addr2ln_options::addr2ln_options(int argc, char const *argv[])
-    : m_data(new addr2ln_options::options_data(argv[0]))
+addr2ln_options::addr2ln_options(int const argc, char const *argv[])
+    : m_data(std::make_unique<addr2ln_options::options_data>(argv[0]))
 {
     ASSERT(!g_options);
     ASSERT(m_data);

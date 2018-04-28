@@ -3,7 +3,8 @@
 
 /**
  * @file
- * @brief Declare the command-line options interface for the Addr2Ln application.
+ * @brief Declare the command-line options interface for the Addr2Ln
+ *        application.
  *
  * @author  Matt Bisson
  * @date    14 August, 2016
@@ -192,8 +193,8 @@ private:
      * @brief Try to alter the options data based on a single character CLI
      *        switch.
      *
-     * If the user asks for version information or command-line option help, this
-     * method will print that to the command line.
+     * If the user asks for version information or command-line option help,
+     * this method will print that to the command line.
      *
      * @param[in] i
      *     The index (in @p argv) to the command-line parameter that should be

@@ -65,10 +65,11 @@ dll_export_view::begin() const
 dll_export_iterator
 dll_export_view::end() const
 {
+    ASSERT(m_number_of_functions < UINT16_MAX);
     return dll_export_iterator(
         m_base_address,
         m_va_offset,
-        m_number_of_functions,
+        static_cast<uint16_t>(m_number_of_functions),
         m_export_rva + m_number_of_functions,
         m_idx_with_name + m_number_of_names,
         m_export_name_rva + m_number_of_names);

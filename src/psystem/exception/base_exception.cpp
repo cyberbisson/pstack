@@ -102,7 +102,7 @@ base_exception::format_message(char const *const msg, ...) noexcept
             return ret;
         }
 
-        buf.reset(new char[size]);
+        buf = std::make_unique<char[]>(size);
         if (!buf) break;
     }
     while (-1 == vsnprintf_s(buf.get(), size, size, msg, args));

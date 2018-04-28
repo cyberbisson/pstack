@@ -314,7 +314,7 @@ pstack_options::print_usage(const char *const prog_name) noexcept
 ////////////////////////////////////////////////////////////////////////////////
 
 pstack_options::pstack_options(int const argc, char const *argv[])
-    : m_data(new pstack_options::options_data(argv[0]))
+    : m_data(std::make_unique<pstack_options::options_data>(argv[0]))
 {
     ASSERT(!g_options);
     ASSERT(m_data);
@@ -413,7 +413,7 @@ pstack_options::try_pid(char const *const arg)
     ASSERT(arg);
 
     char *end;
-    psystem::process_id_t new_pid = strtoul(arg, &end, 0);
+    psystem::process_id_t const new_pid = strtoul(arg, &end, 0);
 
     if (!end || *end != '\0' || arg == end)
     {
