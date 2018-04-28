@@ -1,4 +1,5 @@
 runemacs ./include/addr2ln/addr2ln_ns.hpp ^
+./include/addr2ln/addr2ln_options.hpp ^
 ./include/proclib/base_debug_event_listener.hpp ^
 ./include/proclib/debug_engine.hpp ^
 ./include/proclib/demangle/demangle.hpp ^
@@ -40,6 +41,8 @@ runemacs ./include/addr2ln/addr2ln_ns.hpp ^
 ./include/psystem/symbol_view.hpp ^
 ./include/psystem/thread_info.hpp ^
 ./src/addr2ln/addr2ln.cpp ^
+./src/addr2ln/addr2ln.rc ^
+./src/addr2ln/addr2ln_options.cpp ^
 ./src/proclib/base_debug_event_listener.cpp ^
 ./src/proclib/debug_engine.cpp ^
 ./src/proclib/demangle/cp-demangle.win32.cpp ^
@@ -47,6 +50,7 @@ runemacs ./include/addr2ln/addr2ln_ns.hpp ^
 ./src/proclib/process_debugger.cpp ^
 ./src/pstack/debug_event_dumper.cpp ^
 ./src/pstack/pstack.cpp ^
+./src/pstack/pstack.rc ^
 ./src/pstack/pstack_event_handler.cpp ^
 ./src/pstack/pstack_options.cpp ^
 ./src/psystem/dbghelp_symbol_engine.cpp ^
@@ -65,6 +69,4 @@ runemacs ./include/addr2ln/addr2ln_ns.hpp ^
 ./src/psystem/symbol_file_module.cpp ^
 ./src/psystem/symbol_view.cpp ^
 ./src/psystem/thread_info.cpp ^
-./test/test_application.cpp ^
-./src/addr2ln/addr2ln.rc ^
-./src/pstack/pstack.rc
+./test/test_application.cpp
