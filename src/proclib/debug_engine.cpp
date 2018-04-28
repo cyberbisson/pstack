@@ -129,14 +129,16 @@ debug_engine::wait_for_event(DWORD const ms /*=INFINITE*/) const
     auto debugger_it = m_debuggers.find(debug_evt.dwProcessId);
     if (debugger_it == m_debuggers.end())
     {
-        printf("Couldn't find a debugger with PID: %lu\n", debug_evt.dwProcessId);
+        printf("Couldn't find a debugger with PID: %lu\n",
+               debug_evt.dwProcessId);
         return false; /// @todo LOG
     }
 
     process_debugger *const debugger = debugger_it->second.get();
     if (!debugger)
     {
-        printf("Debugger already cleared out for PID: %lu\n", debug_evt.dwProcessId);
+        printf("Debugger already cleared out for PID: %lu\n",
+               debug_evt.dwProcessId);
         return false; /// @todo LOG
     }
 
@@ -220,7 +222,8 @@ debug_engine::wait_for_event(DWORD const ms /*=INFINITE*/) const
             debug_evt.u.UnloadDll);
         break;
 
-        // Most compilers don't warn if you missed a case when default is present
+        // Most compilers don't warn if you missed a case when default is
+        // present.
 #ifndef _DEBUG
     default:
         printf("--> Got UNKNOWN event\n");
@@ -243,7 +246,8 @@ debug_engine::wait_for_event(DWORD const ms /*=INFINITE*/) const
             DBG_EXCEPTION_NOT_HANDLED))
     {
         THROW_WINDOWS_EXCEPTION_F(
-            GetLastError(), "Cannot continue process %d", debug_evt.dwProcessId);
+            GetLastError(),
+            "Cannot continue process %d", debug_evt.dwProcessId);
     }
 
     return ret;

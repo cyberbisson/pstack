@@ -215,8 +215,10 @@ private:
  * instance.  The output will be a human-readable string with (at least) the
  * message contained in the exception.
  *
- * @param[in,out] out The stream to modify with serialized exception information.
- * @param[in]     ex  The exception to serialize.
+ * @param[in,out] out
+ *     The stream to modify with serialized exception information.
+ * @param[in] ex
+ *     The exception to serialize.
  *
  * @return The modified output stream after serialization.
  */

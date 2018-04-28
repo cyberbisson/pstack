@@ -7,18 +7,18 @@
  *        (psystem::shared_handle).
  *
  * @note
- *     There are no comparison operators for @c shared_handle to simple @c handle
- *     types for a few reasons.  First, it is difficult challenging (not
- *     impossible) to decide on a type for the unmanaged handle because handles
- *     are generally pointers or even integers that have been given another name
- *     via typedef.  They may also be forward declarations of a type as well.
- *     The second reason is that many handle types will conflict with the
- *     @c bool operator---the expression @c "shared_handle(hndl) == hndl" may
- *     first convert the @c shared_handle to a bool, then use a simple equality
- *     operator that compares POD integers, or it call the @c operator== that
- *     takes @c shared_handle and the handle type.  There is ambiguity.  We will
- *     therefore not defined these operators, and only compare @c shared_handle
- *     to @c shared_handle.
+ *     There are no comparison operators for @c shared_handle to simple @c
+ *     @c handle types for a few reasons.  First, it is difficult challenging
+ *     (not impossible) to decide on a type for the unmanaged handle because
+ *     handles are generally pointers or even integers that have been given
+ *     another name via typedef.  They may also be forward declarations of a
+ *     type as well.  The second reason is that many handle types will conflict
+ *     with the @c bool operator---the expression @c "shared_handle(hndl) ==
+ *     hndl" may first convert the @c shared_handle to a bool, then use a simple
+ *     equality operator that compares POD integers, or it call the
+ *     @c operator== that takes @c shared_handle and the handle type.  There is
+ *     ambiguity.  We will therefore not defined these operators, and only
+ *     compare @c shared_handle to @c shared_handle.
  *
  * @author  Matt Bisson
  * @date    5 August, 2014

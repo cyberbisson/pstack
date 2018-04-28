@@ -146,8 +146,8 @@ public:
      * @brief Remove an already registered event listener.
      *
      * This method removes a listener that was previously registered with
-     * add_event_listener() by its ID.  If the ID was not found, this method does
-     * nothing.
+     * add_event_listener() by its ID.  If the ID was not found, this method
+     * does nothing.
      *
      * @param[in] id The ID received on addition of the listener instance (from
      *               add_event_listener()).

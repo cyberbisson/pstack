@@ -7,18 +7,18 @@
  *        (psystem::unique_handle).
  *
  * @note
- *     There are no comparison operators for @c unique_handle to simple @c handle
- *     types for a few reasons.  First, it is difficult challenging (not
- *     impossible) to decide on a type for the unmanaged handle because handles
- *     are generally pointers or even integers that have been given another name
- *     via typedef.  They may also be forward declarations of a type as well.
- *     The second reason is that many handle types will conflict with the
- *     @c bool operator---the expression @c "unique_handle(hndl) == hndl" may
- *     first convert the @c unique_handle to a bool, then use a simple equality
- *     operator that compares POD integers, or it call the @c operator== that
- *     takes @c unique_handle and the handle type.  There is ambiguity.  We will
- *     therefore not defined these operators, and only compare @c unique_handle
- *     to @c unique_handle.
+ *     There are no comparison operators for @c unique_handle to simple
+ *     @c handle types for a few reasons.  First, it is difficult challenging
+ *     (not impossible) to decide on a type for the unmanaged handle because
+ *     handles are generally pointers or even integers that have been given
+ *     another name via typedef.  They may also be forward declarations of a
+ *     type as well.  The second reason is that many handle types will conflict
+ *     with the @c bool operator---the expression @c "unique_handle(hndl) ==
+ *     hndl" may first convert the @c unique_handle to a bool, then use a simple
+ *     equality operator that compares POD integers, or it call the
+ *     @c operator== that takes @c unique_handle and the handle type.  There is
+ *     ambiguity.  We will therefore not defined these operators, and only
+ *     compare @c unique_handle to @c unique_handle.
  *
  * @author  Matt Bisson
  * @date    5 August, 2014
@@ -52,11 +52,11 @@ namespace psystem {
  *
  * Construction of this class is private, and only the declared friend,
  * unique_handle can create an instance of this class.  This class should be
- * considered @em part of unique_handle --- the part that provides the
- * interface that has nothing to do with the "deleter".  Template specializations
- * for unique_handle focus on optimizing the memory size by removing the
- * deleter field from the structure if it is a stateless function invocation
- * (e.g., @c CloseHandle from the Win32 API).
+ * considered @em part of unique_handle --- the part that provides the interface
+ * that has nothing to do with the "deleter".  Template specializations for
+ * unique_handle focus on optimizing the memory size by removing the deleter
+ * field from the structure if it is a stateless function invocation (e.g.,
+ * @c CloseHandle from the Win32 API).
  *
  * @author  Matt Bisson
  * @date    24 August, 2014
@@ -75,8 +75,8 @@ namespace psystem {
 template <typename T, typename D, T kInvalidHandle>
 class unique_handle_impl : public psystem::stack_allocated
 {
-    /// @brief Limit use of this class ONLY to unique_handle; they are two halves
-    ///        of the same interface.
+    /// @brief Limit use of this class ONLY to unique_handle; they are two
+    ///        halves of the same interface.
     template <typename T2, typename, T2 kInvalidHandle2>
     friend class unique_handle;
 
@@ -195,9 +195,9 @@ private:
  *
  * When we say that the handle is "uniquely" managed by this instance, we simply
  * mean that no other references to that handle exist (or if they exist, they
- * are guaranteed not to outlive this container), and that it is this container's
- * sole responsibility to free all resources for that handle when the container's
- * lifetime ends.
+ * are guaranteed not to outlive this container), and that it is this
+ * container's sole responsibility to free all resources for that handle when
+ * the container's lifetime ends.
  *
  * While it is possible to use @c std::unique_ptr with handles, it becomes
  * somewhat ugly (the handle type must be @c void*, the handle must use
@@ -212,14 +212,15 @@ private:
  *
  * @note
  *     By taking the default parameters for this class template, the deleter
- *     parameter is assumed to be immutable, and the interface strips the ability
- *     to specify a deleter during construction or "reset."  This assumption
- *     allows us to optimize the class such that <em>its memory footprint is
- *     exactly the same as the handle it contains.</em>  In other words, using a
- *     unique_handle instance in this way is no more costly than using the
- *     handle directly, except that it provides a lot more functionality and
- *     exception safety.  To visit the documentation for the optimized interface,
- *     see psystem::unique_handle<T,default_close_handle<T>,kInvalidHandle>.
+ *     parameter is assumed to be immutable, and the interface strips the
+ *     ability to specify a deleter during construction or "reset."  This
+ *     assumption allows us to optimize the class such that <em>its memory
+ *     footprint is exactly the same as the handle it contains.</em> In other
+ *     words, using a unique_handle instance in this way is no more costly than
+ *     using the handle directly, except that it provides a lot more
+ *     functionality and exception safety.  To visit the documentation for the
+ *     optimized interface, see
+ *     psystem::unique_handle<T,default_close_handle<T>,kInvalidHandle>.
  *
  * @warning
  *     This interface mimics @c std::unique_ptr, but it is not identical.  Be
@@ -228,9 +229,10 @@ private:
  *
  * @tparam T The type of the handle that is managed by this class.
  * @tparam D
- *     The type of the "deleter" that must clean up the resources consumed by the
- *     handle that is managed by this class.  The clean-up routine must match
- *     the function signature, @c "void(handle_type)", and it must not throw.
+ *     The type of the "deleter" that must clean up the resources consumed by
+ *     the handle that is managed by this class.  The clean-up routine must
+ *     match the function signature, @c "void(handle_type)", and it must not
+ *     throw.
  * @tparam kInvalidHandle
  *     For a handle to be used by this class, it must have the concept of an
  *     "invalid" handle value.  This concept is analogous to @c nullptr for
@@ -504,7 +506,8 @@ public:
     /// @name Member Data
     ////////////////////////////////////////////////////////////////////////////
 private:
-    /// @brief The instance that will be used to clean up the handle's resources.
+    /// @brief The instance that will be used to clean up the handle's
+    ///        resources.
     deleter_type m_deleter;
 };
 

@@ -45,7 +45,8 @@
     }
 
 /**
- * @brief Throw a Windows API error as an exception with a formatted description.
+ * @brief Throw a Windows API error as an exception with a formatted
+ *        description.
  *
  * The result of the psystem::exception::system_exception::what() method will be
  * something like "[error message]: [formatted msg]".

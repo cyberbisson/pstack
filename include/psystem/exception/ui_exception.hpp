@@ -29,8 +29,8 @@ namespace exception {
  *
  * This class is mostly useful to distinguish invalid user input from other
  * catastropic errors at the catch site.  A layer that interacts with the user
- * should catch this exception type and present an error message to give feedback
- * that the given input made no sense to the application.
+ * should catch this exception type and present an error message to give
+ * feedback that the given input made no sense to the application.
  *
  * @author  Matt Bisson
  * @date    26 November, 2007 -- 5 August, 2014

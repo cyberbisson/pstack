@@ -35,7 +35,7 @@
 
 /**
  * @mainpage Stack Printout (PStack) Reference
- * 
+ *
  * The main project contained in this code-base is the PStack application.  This
  * is an application that is capable of connecting to a running process, and
  * displaying stack traces for all threads.  It decodes both MSVC's and G++'s

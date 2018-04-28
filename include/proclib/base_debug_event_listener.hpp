@@ -74,8 +74,10 @@ public:
      * also because it signifies that the executable module has been loaded, and
      * that the main process thread has been created.
      *
-     * @param[in] pid The ID of the process that signaled this event.
-     * @param[in] tid The ID of the thread that is currently in the active state.
+     * @param[in] pid
+     *     The ID of the process that signaled this event.
+     * @param[in] tid
+     *     The ID of the thread that is currently in the active state.
      * @param[in] file_handle
      *     The "shared" handle to the open file that represents this process's
      *     module.  The handle will be closed if no listeners copy the
@@ -115,16 +117,19 @@ public:
         CREATE_THREAD_DEBUG_INFO const& info) noexcept;
 
     /**
-     * @brief Invoked when the debugger sends an event to indicate some exception
-     *        in normal process execution.
+     * @brief Invoked when the debugger sends an event to indicate some
+     *        exception in normal process execution.
      *
      * An exception may be an unhandled C++ exception, it may be a system-level
      * exception (i.e., @c sigsegv on UNIX or GPF on Windows plaforms), or it
      * may simply indicate that the debugger has reached a breakpoint (which may
-     * be requested either by the debugger itself, or by a user-specified break).
+     * be requested either by the debugger itself, or by a user-specified
+     * break).
      *
-     * @param[in] pid The ID of the process that signaled this event.
-     * @param[in] tid The ID of the thread that is currently in the active state.
+     * @param[in] pid
+     *     The ID of the process that signaled this event.
+     * @param[in] tid
+     *     The ID of the thread that is currently in the active state.
      * @param[in] info
      *     Information that applies specifically to this event.  This will
      *     contain the exception record, which in turn contains the cause of the
@@ -142,9 +147,12 @@ public:
      * @brief Invoked when the debugger sends an event to indicate that the
      *        process has exited.
      *
-     * @param[in] pid  The ID of the process that signaled this event.
-     * @param[in] tid  The ID of the thread that was in the active state on exit.
-     * @param[in] info Information that applies specifically to this event.
+     * @param[in] pid
+     *     The ID of the process that signaled this event.
+     * @param[in] tid
+     *     The ID of the thread that was in the active state on exit.
+     * @param[in] info
+     *     Information that applies specifically to this event.
      *
      * @return This method should return @c true to indicate that it has taken
      *     action based on receiving the event, or @c false to indicate that it
@@ -183,8 +191,10 @@ public:
      * process, or if the debugger discovers an already loaded DLL when
      * attaching to a process.
      *
-     * @param[in] pid The ID of the process that signaled this event.
-     * @param[in] tid The ID of the thread that is currently in the active state.
+     * @param[in] pid
+     *     The ID of the process that signaled this event.
+     * @param[in] tid
+     *     The ID of the thread that is currently in the active state.
      * @param[in] file_handle
      *     The "shared" handle to the open file that represents this process's
      *     module.  The handle will be closed if no listeners copy the

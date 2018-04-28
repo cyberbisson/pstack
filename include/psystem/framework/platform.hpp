@@ -63,7 +63,10 @@
  * cannot provide defaulted CTORs and DTORs that have an exception specification
  * either as required by the C++ language (see C++ specification 8.4.2).  There
  * is a run-time benefit associated with @c noexcept (and to a lesser extent,
- * @c throw()), so we'll still try to use it.
+ * @c throw()), so we'll still try to use it.  Because of all this, we can't
+ * default special member functions, either, because the compiler doesn't like
+ * throws specifiers.  This is the choice we've made, and it's the best of a
+ * mediocre situation.
  */
 #if defined(_MSC_VER) && (_MSV_VER <= 1800)
 #   define _ALLOW_KEYWORD_MACROS ///< @brief Tell MSVC to allow certain keywords

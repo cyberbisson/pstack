@@ -45,10 +45,10 @@ using psystem::framework::mask;
 
 int main()
 {
-    stat file_info = { 0 };
-    if (0 == stat("/", &file_info))
+    stat fl_info = { 0 };
+    if (0 == stat("/", &fl_info))
     {
-        std::cout << "File permissions are: " << mask(file_info.st_mode) << '\n';
+        std::cout << "File permissions are: " << mask(fl_info.st_mode) << '\n';
     }
 
     return 0;

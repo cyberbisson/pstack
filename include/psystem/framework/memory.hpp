@@ -32,7 +32,8 @@
 namespace std {
 
 /**
- * @brief Construct a new instance of @p T, assigning it to a @c std::unique_ptr.
+ * @brief Construct a new instance of @p T, assigning it to a
+ *        @c std::unique_ptr.
  *
  * The main benefit of this method is exception safety.  Consider the following
  * code:

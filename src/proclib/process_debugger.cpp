@@ -107,7 +107,7 @@ struct process_debugger::dispatching_event_listener final
     {                                                                   \
         bool ret = false;                                               \
                                                                         \
-        for (std::shared_ptr<base_debug_event_listener>& listener : m_listeners)\
+        for (std::shared_ptr<base_debug_event_listener>& listener: m_listeners)\
         {                                                               \
             ASSERT(listener);                                           \
             ret = listener->listener_func(pid, tid, info) || ret;       \
@@ -138,7 +138,8 @@ process_debugger::dispatching_event_listener::create_process_event(
     for (std::shared_ptr<base_debug_event_listener>& listener : m_listeners)
     {
         ASSERT(listener);
-        ret = listener->create_process_event(pid, tid, file_handle, info) || ret;
+        ret = listener->create_process_event(pid, tid, file_handle, info)
+            || ret;
     }
 
     return ret;

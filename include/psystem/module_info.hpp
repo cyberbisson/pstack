@@ -158,7 +158,8 @@ private:
     address_t m_base_of_image;
 
     /**
-     * @brief The file name of the library / executable that defines this module.
+     * @brief The file name of the library / executable that defines this
+     *        module.
      *
      * This is expensive to generate, and is only created lazily.
      */

@@ -3,7 +3,8 @@
 
 /**
  * @file
- * @brief Declare an "engine" to drive debugging events and contain require data.
+ * @brief Declare an "engine" to drive debugging events and contain require
+ *        data.
  *
  * @author  Matt Bisson
  * @date    5 August, 2014

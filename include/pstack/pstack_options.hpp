@@ -137,7 +137,8 @@ public:
     /**
      * @brief Output information about the PStack's version to the screen.
      *
-     * This also displays PSystem information, as PStack relies upon that system.
+     * This also displays PSystem information, as PStack relies upon that
+     * system.
      */
     static void print_version_info() noexcept;
 
@@ -217,10 +218,10 @@ private:
     /**
      * @brief Try to interpret a CLI parameter as a process ID.
      *
-     * This method attempts to convert a string using the C++ numerical (literal)
-     * token's syntax.  That is, strings that begin with @c "0x" will be
-     * interpreted as hexadecimal, those that begin with @c "0" will be assumed
-     * to be octal, and all others will be assumed to be decimal.
+     * This method attempts to convert a string using the C++ numerical
+     * (literal) token's syntax.  That is, strings that begin with @c "0x" will
+     * be interpreted as hexadecimal, those that begin with @c "0" will be
+     * assumed to be octal, and all others will be assumed to be decimal.
      *
      * @param[in] arg The string to parse.  It cannot be @c nullptr.
      * @throws psystem::exception::ui_exception
@@ -234,8 +235,8 @@ private:
      * @brief Try to alter the options data based on a single character CLI
      *        switch.
      *
-     * If the user asks for version information or command-line option help, this
-     * method will print that to the command line.
+     * If the user asks for version information or command-line option help,
+     * this method will print that to the command line.
      *
      * @param[in] arg The single-letter command-line switch to parse.
      *
@@ -247,7 +248,8 @@ private:
      *     @c bool with the value @c false.
      *
      * @todo Either throw a better exception type (help_exception) or perhaps
-     *       alter the flow so that a return value can present the same behavior.
+     *       alter the flow so that a return value can present the same
+     *       behavior.
      */
     void try_switch(char arg);
 

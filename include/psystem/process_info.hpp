@@ -36,9 +36,9 @@ class thread_info;
 /**
  * @brief A container object for a process's information.
  *
- * This object encapsulates information about a process, as well as being the top
- * level item in the heirarchy of debugging information objects.  Traverse the
- * list of threads from here (get the stack traces from there) and so on.
+ * This object encapsulates information about a process, as well as being the
+ * top level item in the heirarchy of debugging information objects.  Traverse
+ * the list of threads from here (get the stack traces from there) and so on.
  *
  * @author  Matt Bisson
  * @date    5 August, 2014
@@ -58,7 +58,8 @@ public:
      * @brief Mapping of thread IDs (TIDs) to the psystem::thread_info instance.
      * @todo Make private...
      */
-    using thread_info_map = std::map<thread_id_t, std::unique_ptr<thread_info> >;
+    using thread_info_map =
+        std::map< thread_id_t, std::unique_ptr<thread_info> >;
 
     ////////////////////////////////////////////////////////////////////////////
     /// @name Construction / Destruction
@@ -67,8 +68,10 @@ public:
     /**
      * @brief Construct a process_info instance.
      *
-     * @param[in] pid  The system process ID (PID) of the process being examined.
-     * @param[in] info Process-specific data to assimilate into this instance.
+     * @param[in] pid
+     *     The system process ID (PID) of the process being examined.
+     * @param[in] info
+     *     Process-specific data to assimilate into this instance.
      */
     process_info(
         process_id_t pid,
@@ -104,9 +107,9 @@ public:
      *        process_info instance.
      *
      * @param[in] thread
-     *     The thread parameter is a @c std::unique_ptr value to "sink" ownership
-     *     (i.e., transfer) from the caller to this instance.  The parameter
-     *     must not contain @c nullptr.
+     *     The thread parameter is a @c std::unique_ptr value to "sink"
+     *     ownership (i.e., transfer) from the caller to this instance.  The
+     *     parameter must not contain @c nullptr.
      * @return @c true if the thread was successfully added; @c false otherwise.
      */
     bool add_thread(std::unique_ptr<thread_info> thread) noexcept;

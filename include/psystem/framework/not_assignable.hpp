@@ -32,7 +32,8 @@ namespace psystem {
  * their base to get this functionality.  This class will not add any overhead
  * at run-time.
  *
- * @note This can be cirucumvented, of course, by simply overloading operator=().
+ * @note This can be cirucumvented, of course, by simply overloading
+ *       operator=().
  *
  * @author  Matt Bisson
  * @date    5 August, 2014

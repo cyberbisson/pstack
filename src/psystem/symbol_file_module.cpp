@@ -345,7 +345,8 @@ symbol_file_module::get_dll_export_view()
             return nullptr;
         }
 
-        IMAGE_SECTION_HEADER const *img_section = IMAGE_FIRST_SECTION(nt_header);
+        IMAGE_SECTION_HEADER const *img_section =
+            IMAGE_FIRST_SECTION(nt_header);
         while (export_dir_ptr->VirtualAddress >
                (img_section->Misc.VirtualSize + img_section->VirtualAddress))
         {
@@ -356,7 +357,7 @@ symbol_file_module::get_dll_export_view()
             static_cast<integral_address_t>(img_section->PointerToRawData) -
             img_section->VirtualAddress;
 
-        auto const export_dir = 
+        auto const export_dir =
             reinterpret_cast<IMAGE_EXPORT_DIRECTORY const *>(
                 base_address +
                 export_dir_ptr->VirtualAddress +

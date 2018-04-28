@@ -58,11 +58,13 @@ int const kMaxExceptionRecordLevels = 8;
 } // namespace <anon>
 
 /**
- * @brief Find the name of a file when given a handle to that memory-mapped file.
+ * @brief Find the name of a file when given a handle to that memory-mapped
+ *        file.
  *
  * @param[in] h_file
  *     The handle to the memory-mapped file to gather a name for.
- * @return A file name, or the empty string if the file name cannot be retrieved.
+ * @return A file name, or the empty string if the file name cannot be
+ *     retrieved.
  *
  * @todo Merge this with the @c module_info.cpp version?
  */
@@ -167,7 +169,7 @@ print_exception_record(
     }
     std::cout << '\n';
 
-    std::cout << "\t\tException Addr:  " << ptr(ex_rec.ExceptionAddress) << '\n';
+    std::cout << "\t\tException Addr:  " << ptr(ex_rec.ExceptionAddress) <<'\n';
     std::cout << "\t\tException Rec:   " << ptr(ex_rec.ExceptionRecord) << '\n';
 
     // Recurse onward...

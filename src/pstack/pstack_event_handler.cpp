@@ -3,7 +3,8 @@
 
 /**
  * @file
- * @brief Define event handlers that accumulate data for generating stack traces.
+ * @brief Define event handlers that accumulate data for generating stack
+ *        traces.
  *
  * @author  Matt Bisson
  * @date    5 August, 2014

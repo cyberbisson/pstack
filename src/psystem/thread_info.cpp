@@ -28,7 +28,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @brief Initialize a stack frame object for the first call into @c StackWalk64.
+ * @brief Initialize a stack frame object for the first call into
+ *        @c StackWalk64.
  *
  * @param[in] context A thread context to initialize data in the resulting
  *                    @c STACKFRAME64 object.

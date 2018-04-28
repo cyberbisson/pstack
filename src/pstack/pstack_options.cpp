@@ -393,7 +393,7 @@ pstack_options::dump_arguments(pstack_options::options_data const& d) noexcept
     std::cout << "\tFRAMES:   " << swtch(d.show_frames) << '\n';
     std::cout << "\tTHREADS:  show " << ((d.search_all_threads) ? "all" : "one")
               << '\n';
-    std::cout << "\tSYMBOLS:  find in " << 
+    std::cout << "\tSYMBOLS:  find in " <<
            ((d.get_image_symbols) ? "memory" : "memory/file") << '\n';
     std::cout << '\n';
 
@@ -424,8 +424,8 @@ pstack_options::try_pid(char const *arg)
     if (ULONG_MAX == new_pid)
     {
         throw psystem::exception::ui_exception(
-            __FILE__, __FUNCTION__, __LINE__, "Process ID is too large - \"%s\"",
-            arg);
+            __FILE__, __FUNCTION__, __LINE__,
+            "Process ID is too large - \"%s\"", arg);
     }
 
     ASSERT(m_data);

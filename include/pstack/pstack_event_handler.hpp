@@ -123,7 +123,7 @@ public:
      * @brief Determines if the debugger is ready to give a valid stack trace
      *        for all threads.
      *
-     * @return 
+     * @return
      *     This is @c false until the pstack_event_handler decides that it has
      *     seen all of the debugger events that come from the debugger attaching
      *     to a process.
