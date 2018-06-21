@@ -34,6 +34,7 @@ using pid_t = int;
 #include <chrono>
 #include <condition_variable>
 #include <csignal>
+#include <functional>
 #include <iostream>
 #include <list>
 #include <memory>

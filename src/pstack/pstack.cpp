@@ -102,7 +102,7 @@ output_stack_frame(
                 proclib::demangle::demangle_gcc(sym->get_name().c_str());
 
             std::cout <<
-                (!demangled_name.empty()) ? demangled_name : sym->get_name();
+                ((!demangled_name.empty()) ? demangled_name : sym->get_name());
         }
 
         if (sym->get_code_offset())

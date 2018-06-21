@@ -27,13 +27,14 @@ endif
 # Compiler Configuration:
 ################################################################################
 
-CFLAGS   = -Wall -Wextra -Wno-missing-field-initializers -march=native
+CFLAGS   = -Wall -Wextra -Wpedantic -Wno-missing-field-initializers \
+           -march=native
 CPPFLAGS = -I./include -I./windows_shim
 ifdef DEBUG_BUILD
 CFLAGS   += -g
 CPPFLAGS += -D_DEBUG
 else
-CFLAGS   += -O3
+CFLAGS   += -O3 -flto
 endif
 
 CXXFLAGS = $(CFLAGS) -std=c++11

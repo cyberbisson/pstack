@@ -192,7 +192,7 @@ inline HANDLE CreateFileMappingA(
 { return nullptr; }
 inline HANDLE CreateFileMappingW(
     HANDLE, LPSECURITY_ATTRIBUTES, DWORD, DWORD, DWORD, LPCWSTR)
-{ return nullptr; };
+{ return nullptr; }
 
 inline LPVOID MapViewOfFile(HANDLE, DWORD, DWORD, DWORD, SIZE_T)
 { return nullptr; }

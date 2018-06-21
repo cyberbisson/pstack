@@ -122,6 +122,8 @@ module_info::init_file_name(HANDLE file_handle, std::string *const out) noexcept
         {
             // Some error occurred, and I really give up...
             file_buffer.reset();
+            out->clear();
+            return;
         }
     }
 
