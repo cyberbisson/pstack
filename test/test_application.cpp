@@ -103,6 +103,8 @@ namespace test_ns {
 class test_class
 {
 public:
+    virtual ~test_class() = default;
+
     virtual void virtual_function() const
     {
         block_thread();
